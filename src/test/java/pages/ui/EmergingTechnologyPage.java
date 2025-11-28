@@ -26,7 +26,7 @@ public class EmergingTechnologyPage extends BasePage {
     public void validateEmergingTechnologyPageLinksAndNavigation() {
         try {
             // Wait for the page to load by checking the presence of the main header
-            WaitStatementUtils.explicitWaitForVisibility(driver, By.xpath("//h2[contains(text(),'Emerging Technology')]"), 10);
+            WaitStatementUtils.explicitWaitForVisibility(driver, getElement(By.xpath("//h2[contains(text(),'Emerging Technology')]")), 10);
             ScreenshotUtil.takeScreenshotForAllure(driver);
 
             // Validate "Additive Manufacturing Consulting Services" link
