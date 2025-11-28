@@ -1,0 +1,104 @@
+{
+  "WM-222": {
+    "TestCaseID": "WM-222",
+    "TestCaseName": "Validate Page Load, Presence of All Links & Navigation",
+    "Objective": "Validate that the Emerging Technology page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
+    "Priority": "Medium",
+    "Type": "No Type specified",
+    "Locators": [
+      {
+        "name": "pageHeader",
+        "locator": "//h1[contains(text(),'Emerging Technology')]",
+        "type": "xpath"
+      },
+      {
+        "name": "mainNavLinks",
+        "locator": "//nav[@id='main-nav']//a",
+        "type": "xpath"
+      },
+      {
+        "name": "footerLinks",
+        "locator": "//footer//a",
+        "type": "xpath"
+      },
+      {
+        "name": "breadcrumbTrail",
+        "locator": "//nav[@aria-label='breadcrumb']//a",
+        "type": "xpath"
+      },
+      {
+        "name": "contactUsLink",
+        "locator": "//a[contains(text(),'Contact Us')]",
+        "type": "xpath"
+      }
+    ],
+    "TestData": {
+      "pageUrl": "https://www.example.com/emerging-technology",
+      "expectedHeader": "Emerging Technology",
+      "expectedLinks": [
+        { "text": "AI & Machine Learning", "href": "/emerging-technology/ai-ml", "expectedDestinationTitle": "AI & Machine Learning" },
+        { "text": "Blockchain", "href": "/emerging-technology/blockchain", "expectedDestinationTitle": "Blockchain" },
+        { "text": "IoT", "href": "/emerging-technology/iot", "expectedDestinationTitle": "Internet of Things (IoT)" },
+        { "text": "Quantum Computing", "href": "/emerging-technology/quantum", "expectedDestinationTitle": "Quantum Computing" },
+        { "text": "Contact Us", "href": "/contact-us", "expectedDestinationTitle": "Contact Us" }
+      ],
+      "footerLinks": [
+        { "text": "Privacy Policy", "href": "/privacy-policy" },
+        { "text": "Terms of Use", "href": "/terms" },
+        { "text": "Accessibility", "href": "/accessibility" }
+      ],
+      "mainNavLinks": [
+        { "text": "Home", "href": "/" },
+        { "text": "About", "href": "/about" },
+        { "text": "Standards", "href": "/standards" },
+        { "text": "News", "href": "/news" },
+        { "text": "Contact Us", "href": "/contact-us" }
+      ],
+      "breadcrumbTrail": [
+        { "text": "Home", "href": "/" },
+        { "text": "Emerging Technology", "href": "/emerging-technology" }
+      ],
+      "edgeCases": [
+        {
+          "description": "Link with empty href",
+          "text": "Broken Link",
+          "href": "",
+          "expectedDestinationTitle": null
+        },
+        {
+          "description": "Link with external URL",
+          "text": "External Resource",
+          "href": "https://external.example.com/resource",
+          "expectedDestinationTitle": "External Resource Page"
+        },
+        {
+          "description": "Link with special characters",
+          "text": "C++ & AI",
+          "href": "/emerging-technology/cpp-ai",
+          "expectedDestinationTitle": "C++ & AI"
+        },
+        {
+          "description": "Very long link text",
+          "text": "This is a very long link text to test UI overflow and accessibility in navigation menus",
+          "href": "/emerging-technology/long-link",
+          "expectedDestinationTitle": "Long Link Test"
+        }
+      ],
+      "boundaryCases": [
+        {
+          "description": "No links present on the page",
+          "expectedLinks": []
+        },
+        {
+          "description": "Maximum allowed links (e.g., 50)",
+          "expectedLinks": [
+            { "text": "Link 1", "href": "/emerging-technology/link-1" },
+            { "text": "Link 2", "href": "/emerging-technology/link-2" }
+            // ... up to 50
+          ]
+        }
+      ]
+    },
+    "ExpectedResult": "User navigates to the Contact Us page"
+  }
+}
