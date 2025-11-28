@@ -1,0 +1,129 @@
+{
+  "WM-ET-001": {
+    "TestCaseID": "WM-ET-001",
+    "TestCaseName": "Validate Page Load, Presence of All Links & Navigation",
+    "Objective": "Validate that the Emerging Technology page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
+    "Priority": "Medium",
+    "Type": "Functional",
+    "Locators": [
+      {
+        "name": "pageHeader",
+        "locator": "//h1[contains(text(),'Emerging Technology')]",
+        "type": "xpath"
+      },
+      {
+        "name": "allLinksSection",
+        "locator": "//div[@class='links-list']//a",
+        "type": "xpath"
+      },
+      {
+        "name": "footerContactUsLink",
+        "locator": "//footer//a[contains(text(),'Contact Us')]",
+        "type": "xpath"
+      },
+      {
+        "name": "mainNavLinks",
+        "locator": "//nav//a",
+        "type": "xpath"
+      },
+      {
+        "name": "breadcrumb",
+        "locator": "//nav[@aria-label='breadcrumb']//a",
+        "type": "xpath"
+      }
+    ],
+    "TestData": {
+      "pageUrl": "https://astm.org/emerging-technology",
+      "expectedHeader": "Emerging Technology",
+      "expectedLinks": [
+        {
+          "text": "Artificial Intelligence",
+          "href": "/emerging-technology/artificial-intelligence",
+          "expectedDestinationTitle": "Artificial Intelligence - ASTM Emerging Technology"
+        },
+        {
+          "text": "Blockchain",
+          "href": "/emerging-technology/blockchain",
+          "expectedDestinationTitle": "Blockchain - ASTM Emerging Technology"
+        },
+        {
+          "text": "Internet of Things",
+          "href": "/emerging-technology/internet-of-things",
+          "expectedDestinationTitle": "Internet of Things - ASTM Emerging Technology"
+        },
+        {
+          "text": "Additive Manufacturing",
+          "href": "/emerging-technology/additive-manufacturing",
+          "expectedDestinationTitle": "Additive Manufacturing - ASTM Emerging Technology"
+        },
+        {
+          "text": "Robotics",
+          "href": "/emerging-technology/robotics",
+          "expectedDestinationTitle": "Robotics - ASTM Emerging Technology"
+        }
+      ],
+      "footerLinks": [
+        {
+          "text": "Contact Us",
+          "href": "/contact-us",
+          "expectedDestinationTitle": "Contact Us - ASTM International"
+        }
+      ],
+      "mainNavLinks": [
+        {
+          "text": "Home",
+          "href": "/"
+        },
+        {
+          "text": "Standards & Solutions",
+          "href": "/standards-and-solutions"
+        },
+        {
+          "text": "Membership",
+          "href": "/membership"
+        },
+        {
+          "text": "Emerging Technology",
+          "href": "/emerging-technology"
+        }
+      ],
+      "breadcrumbTrail": [
+        {
+          "text": "Home",
+          "href": "/"
+        },
+        {
+          "text": "Emerging Technology",
+          "href": "/emerging-technology"
+        }
+      ],
+      "edgeCases": [
+        {
+          "description": "Link with empty href",
+          "text": "Broken Link",
+          "href": "",
+          "expectedDestinationTitle": ""
+        },
+        {
+          "description": "Link with external URL",
+          "text": "External Resource",
+          "href": "https://external.com/resource",
+          "expectedDestinationTitle": "External Resource"
+        }
+      ],
+      "boundaryCases": [
+        {
+          "description": "First link in the list",
+          "text": "Artificial Intelligence",
+          "href": "/emerging-technology/artificial-intelligence"
+        },
+        {
+          "description": "Last link in the list",
+          "text": "Robotics",
+          "href": "/emerging-technology/robotics"
+        }
+      ]
+    },
+    "ExpectedResult": "User navigates to the Contact Us page"
+  }
+}
