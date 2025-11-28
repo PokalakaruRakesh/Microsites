@@ -7,7 +7,6 @@ import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.ui.AboutPage_WM;
 import pages.ui.CommonPage_WM;
 import pages.ui.StandardsPage_WM;
 import tests.ui.base.BaseTest;
