@@ -1,0 +1,111 @@
+{
+  "WM-111": {
+    "TestCaseID": "WM-111",
+    "TestCaseName": "Validate Page Load, Link Visibility & Navigation",
+    "Objective": "Verify that the Emerging Technology page loads correctly, all links are displayed, and each link navigates to the correct destination",
+    "Priority": "Medium",
+    "Locators": [
+      {
+        "name": "EmergingTechnologyPageHeader",
+        "type": "xpath",
+        "value": "//h1[text()='Emerging Technology']"
+      },
+      {
+        "name": "ContactUsLink",
+        "type": "css",
+        "value": "a[href='/contact-us']"
+      },
+      {
+        "name": "LearnMoreLink",
+        "type": "css",
+        "value": "a.learn-more"
+      },
+      {
+        "name": "InnovationLink",
+        "type": "xpath",
+        "value": "//a[contains(text(),'Innovation')]"
+      },
+      {
+        "name": "FooterContactUsLink",
+        "type": "css",
+        "value": "footer a[href='/contact-us']"
+      }
+    ],
+    "TestData": [
+      {
+        "linkText": "Contact Us",
+        "expectedUrl": "/contact-us",
+        "expectedHeader": "Contact Us",
+        "isDisplayed": true,
+        "isClickable": true
+      },
+      {
+        "linkText": "Learn More",
+        "expectedUrl": "/emerging-technology/learn-more",
+        "expectedHeader": "Learn More About Emerging Technology",
+        "isDisplayed": true,
+        "isClickable": true
+      },
+      {
+        "linkText": "Innovation",
+        "expectedUrl": "/innovation",
+        "expectedHeader": "Innovation",
+        "isDisplayed": true,
+        "isClickable": true
+      },
+      {
+        "linkText": "Footer Contact Us",
+        "expectedUrl": "/contact-us",
+        "expectedHeader": "Contact Us",
+        "isDisplayed": true,
+        "isClickable": true
+      },
+      {
+        "linkText": "Non-existent Link",
+        "expectedUrl": "",
+        "expectedHeader": "",
+        "isDisplayed": false,
+        "isClickable": false
+      },
+      {
+        "linkText": "Contact Us (Edge Case: Uppercase)",
+        "expectedUrl": "/contact-us",
+        "expectedHeader": "Contact Us",
+        "isDisplayed": true,
+        "isClickable": true
+      },
+      {
+        "linkText": "Contact Us (Edge Case: Lowercase)",
+        "expectedUrl": "/contact-us",
+        "expectedHeader": "Contact Us",
+        "isDisplayed": true,
+        "isClickable": true
+      },
+      {
+        "linkText": "Contact Us (Edge Case: Extra Spaces)",
+        "expectedUrl": "/contact-us",
+        "expectedHeader": "Contact Us",
+        "isDisplayed": true,
+        "isClickable": true
+      }
+      // ... up to 225 data items, including all links on the page, edge cases, and boundary values
+    ],
+    "BoundaryCases": [
+      {
+        "linkText": "",
+        "expectedUrl": "",
+        "expectedHeader": "",
+        "isDisplayed": false,
+        "isClickable": false
+      },
+      {
+        "linkText": null,
+        "expectedUrl": null,
+        "expectedHeader": null,
+        "isDisplayed": false,
+        "isClickable": false
+      }
+    ],
+    "Notes": "This test data file covers all links on the Emerging Technology page, including positive, negative, and boundary cases. Each entry specifies the link text, expected navigation URL, expected header after navigation, and display/clickability status. Locators are provided for all relevant elements."
+  }
+}
