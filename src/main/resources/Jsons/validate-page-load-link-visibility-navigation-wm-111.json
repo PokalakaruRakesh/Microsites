@@ -1,0 +1,102 @@
+// Test Data for WM-111: Validate Page Load, Link Visibility & Navigation
+{
+  "WM-111": {
+    "Page": {
+      "Name": "Emerging Technology",
+      "URL": "https://example.com/emerging-technology", // Replace with actual URL
+      "ExpectedTitle": "Emerging Technology | Example Site",
+      "ExpectedHeader": "Emerging Technology"
+    },
+    "Links": [
+      {
+        "LinkText": "Contact Us",
+        "Locator": "//a[text()='Contact Us']",
+        "ExpectedDestination": "https://example.com/contact-us",
+        "IsDisplayed": true,
+        "IsClickable": true,
+        "ExpectedRedirectTitle": "Contact Us | Example Site"
+      },
+      {
+        "LinkText": "Learn More",
+        "Locator": "//a[contains(@href,'learn-more')]",
+        "ExpectedDestination": "https://example.com/emerging-technology/learn-more",
+        "IsDisplayed": true,
+        "IsClickable": true,
+        "ExpectedRedirectTitle": "Learn More | Emerging Technology"
+      },
+      {
+        "LinkText": "White Paper",
+        "Locator": "//a[contains(@href,'white-paper')]",
+        "ExpectedDestination": "https://example.com/emerging-technology/white-paper",
+        "IsDisplayed": true,
+        "IsClickable": true,
+        "ExpectedRedirectTitle": "White Paper | Emerging Technology"
+      },
+      {
+        "LinkText": "Case Studies",
+        "Locator": "//a[contains(@href,'case-studies')]",
+        "ExpectedDestination": "https://example.com/emerging-technology/case-studies",
+        "IsDisplayed": true,
+        "IsClickable": true,
+        "ExpectedRedirectTitle": "Case Studies | Emerging Technology"
+      },
+      {
+        "LinkText": "FAQ",
+        "Locator": "//a[contains(@href,'faq')]",
+        "ExpectedDestination": "https://example.com/emerging-technology/faq",
+        "IsDisplayed": true,
+        "IsClickable": true,
+        "ExpectedRedirectTitle": "FAQ | Emerging Technology"
+      }
+    ],
+    "Locators": {
+      "PageHeader": "//h1[text()='Emerging Technology']",
+      "MainSection": "//section[@id='main-content']",
+      "Footer": "//footer",
+      "Sidebar": "//aside[@id='sidebar']",
+      "Breadcrumb": "//nav[@aria-label='breadcrumb']"
+    },
+    "EdgeCases": [
+      {
+        "Description": "Link not displayed",
+        "LinkText": "Contact Us",
+        "IsDisplayed": false,
+        "IsClickable": false,
+        "ExpectedDestination": null
+      },
+      {
+        "Description": "Link displayed but not clickable",
+        "LinkText": "Learn More",
+        "IsDisplayed": true,
+        "IsClickable": false,
+        "ExpectedDestination": null
+      },
+      {
+        "Description": "Broken link redirects to 404",
+        "LinkText": "White Paper",
+        "IsDisplayed": true,
+        "IsClickable": true,
+        "ExpectedDestination": "https://example.com/404",
+        "ExpectedRedirectTitle": "404 Not Found"
+      }
+    ],
+    "BoundaryValues": [
+      {
+        "Description": "Minimum number of links",
+        "LinksDisplayed": 1
+      },
+      {
+        "Description": "Maximum number of links",
+        "LinksDisplayed": 185
+      }
+    ],
+    "Meta": {
+      "TestCaseId": "WM-111",
+      "Priority": "Medium",
+      "TestSteps": 525,
+      "TestDataItems": 185,
+      "LocatorsCount": 5,
+      "ExpectedResult": "Link is displayed, clickable, and redirects to the Contact Us page"
+    }
+  }
+}
