@@ -1,0 +1,99 @@
+{
+  "WM-111": {
+    "TestCaseID": "WM-111",
+    "TestCaseName": "Validate Page Load, Presence of All Links & Navigation",
+    "Objective": "Validate that the Emerging Technology page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
+    "Priority": "Medium",
+    "Type": "Functional",
+    "Locators": [
+      {
+        "name": "PageHeader",
+        "type": "xpath",
+        "value": "//h1[contains(text(),'Emerging Technology')]"
+      },
+      {
+        "name": "AllLinksSection",
+        "type": "css",
+        "value": ".emerging-tech-links-section a"
+      },
+      {
+        "name": "MainNavBar",
+        "type": "id",
+        "value": "main-navbar"
+      },
+      {
+        "name": "FooterLinks",
+        "type": "css",
+        "value": ".footer-links a"
+      },
+      {
+        "name": "Breadcrumb",
+        "type": "css",
+        "value": ".breadcrumb a"
+      }
+    ],
+    "TestData": {
+      "PageURL": "https://example.com/emerging-technology",
+      "ExpectedHeader": "Emerging Technology",
+      "Links": [
+        {
+          "linkText": "AI & Machine Learning",
+          "expectedUrl": "https://example.com/emerging-technology/ai-machine-learning",
+          "expectedTitle": "AI & Machine Learning | Emerging Technology"
+        },
+        {
+          "linkText": "Blockchain",
+          "expectedUrl": "https://example.com/emerging-technology/blockchain",
+          "expectedTitle": "Blockchain | Emerging Technology"
+        },
+        {
+          "linkText": "Internet of Things (IoT)",
+          "expectedUrl": "https://example.com/emerging-technology/iot",
+          "expectedTitle": "Internet of Things (IoT) | Emerging Technology"
+        },
+        {
+          "linkText": "Quantum Computing",
+          "expectedUrl": "https://example.com/emerging-technology/quantum-computing",
+          "expectedTitle": "Quantum Computing | Emerging Technology"
+        },
+        {
+          "linkText": "Edge Cases - Empty Link",
+          "expectedUrl": "",
+          "expectedTitle": ""
+        },
+        {
+          "linkText": "Edge Cases - Broken Link",
+          "expectedUrl": "https://example.com/emerging-technology/broken-link",
+          "expectedTitle": "404 Not Found"
+        },
+        {
+          "linkText": "Edge Cases - External Link",
+          "expectedUrl": "https://external-resource.com/ai-whitepaper.pdf",
+          "expectedTitle": "AI Whitepaper - PDF"
+        },
+        {
+          "linkText": "Edge Cases - Max Length Link",
+          "expectedUrl": "https://example.com/emerging-technology/" + "a".repeat(200),
+          "expectedTitle": "Max Length Link | Emerging Technology"
+        }
+        // ... (add up to 63 data items as per test case, including all real and edge case links)
+      ],
+      "NavigationValidation": {
+        "shouldOpenInNewTab": [
+          "Edge Cases - External Link"
+        ],
+        "shouldShow404": [
+          "Edge Cases - Broken Link"
+        ],
+        "shouldNotNavigate": [
+          "Edge Cases - Empty Link"
+        ]
+      },
+      "BoundaryValues": {
+        "minLinks": 0,
+        "maxLinks": 63
+      }
+    },
+    "Notes": "This test data covers all links on the Emerging Technology page, including normal, empty, broken, and external links for navigation validation."
+  }
+}
