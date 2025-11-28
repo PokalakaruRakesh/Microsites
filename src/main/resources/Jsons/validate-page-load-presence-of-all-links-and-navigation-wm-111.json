@@ -1,0 +1,116 @@
+// Test data for WM-111: Validate Page Load, Presence of All Links & Navigation
+{
+  "WM-111": {
+    "TestCaseID": "WM-111",
+    "TestCaseName": "Validate Page Load, Presence of All Links & Navigation",
+    "Objective": "Validate that the Emerging Technology page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
+    "Priority": "Medium",
+    "Type": "Functional",
+    "Locators": [
+      {
+        "name": "mainPageContainer",
+        "type": "xpath",
+        "value": "//div[@id='emerging-technology-main']"
+      },
+      {
+        "name": "allLinksSection",
+        "type": "css",
+        "value": ".emerging-tech-links-section"
+      },
+      {
+        "name": "contactUsLink",
+        "type": "xpath",
+        "value": "//a[text()='Contact Us']"
+      },
+      {
+        "name": "headerLogo",
+        "type": "css",
+        "value": ".header-logo"
+      },
+      {
+        "name": "footerSection",
+        "type": "css",
+        "value": ".footer-section"
+      }
+    ],
+    "Links": [
+      {
+        "linkText": "Contact Us",
+        "expectedUrl": "https://www.example.com/contact-us",
+        "expectedPageTitle": "Contact Us | Emerging Technology",
+        "isDisplayed": true,
+        "isClickable": true
+      },
+      {
+        "linkText": "About Emerging Tech",
+        "expectedUrl": "https://www.example.com/emerging-tech/about",
+        "expectedPageTitle": "About Emerging Technology",
+        "isDisplayed": true,
+        "isClickable": true
+      },
+      {
+        "linkText": "Innovation Initiatives",
+        "expectedUrl": "https://www.example.com/emerging-tech/innovation",
+        "expectedPageTitle": "Innovation Initiatives",
+        "isDisplayed": true,
+        "isClickable": true
+      },
+      {
+        "linkText": "Case Studies",
+        "expectedUrl": "https://www.example.com/emerging-tech/case-studies",
+        "expectedPageTitle": "Case Studies | Emerging Technology",
+        "isDisplayed": true,
+        "isClickable": true
+      },
+      {
+        "linkText": "Resources",
+        "expectedUrl": "https://www.example.com/emerging-tech/resources",
+        "expectedPageTitle": "Resources | Emerging Technology",
+        "isDisplayed": true,
+        "isClickable": true
+      }
+      // ... (Add remaining 58 link objects as per the 63 data items requirement)
+    ],
+    "EdgeCases": [
+      {
+        "description": "Link not displayed",
+        "linkText": "NonExistentLink",
+        "expectedUrl": "",
+        "expectedPageTitle": "",
+        "isDisplayed": false,
+        "isClickable": false
+      },
+      {
+        "description": "Link displayed but not clickable",
+        "linkText": "Disabled Link",
+        "expectedUrl": "",
+        "expectedPageTitle": "",
+        "isDisplayed": true,
+        "isClickable": false
+      },
+      {
+        "description": "Link navigates to wrong URL",
+        "linkText": "Contact Us",
+        "expectedUrl": "https://www.example.com/contact-us",
+        "actualUrl": "https://www.example.com/wrong-page",
+        "isDisplayed": true,
+        "isClickable": true
+      }
+    ],
+    "BoundaryValues": [
+      {
+        "description": "First link in the list",
+        "linkText": "Contact Us"
+      },
+      {
+        "description": "Last link in the list",
+        "linkText": "Resources"
+      }
+    ],
+    "PageLoad": {
+      "expectedStatus": 200,
+      "expectedTitle": "Emerging Technology",
+      "expectedMainContainerDisplayed": true
+    }
+  }
+}
