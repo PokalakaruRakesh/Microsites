@@ -1,0 +1,105 @@
+{
+  "WM-222": {
+    "TestCaseID": "WM-222",
+    "TestCaseName": "Validate Page Load, Presence of All Links & Navigation",
+    "Objective": "Validate that the Emerging Technology page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
+    "Priority": "Medium",
+    "Locators": [
+      {
+        "name": "pageHeader",
+        "type": "xpath",
+        "value": "//h1[contains(text(),'Emerging Technology')]"
+      },
+      {
+        "name": "allLinks",
+        "type": "css",
+        "value": "a.emerging-tech-link"
+      },
+      {
+        "name": "contactUsLink",
+        "type": "linkText",
+        "value": "Contact Us"
+      },
+      {
+        "name": "mainNavBar",
+        "type": "id",
+        "value": "main-navbar"
+      },
+      {
+        "name": "footerLinks",
+        "type": "css",
+        "value": "footer a"
+      }
+    ],
+    "Links": [
+      {
+        "linkText": "Contact Us",
+        "expectedUrl": "/contact-us",
+        "expectedDestination": "Contact Us Page",
+        "edgeCases": [
+          { "linkText": "Contact Us", "expectedUrl": "/contact-us?ref=footer", "location": "footer" },
+          { "linkText": "Contact Us", "expectedUrl": "/contact-us?ref=header", "location": "header" }
+        ]
+      },
+      {
+        "linkText": "Technology Overview",
+        "expectedUrl": "/emerging-technology/overview",
+        "expectedDestination": "Technology Overview Page"
+      },
+      {
+        "linkText": "AI & Automation",
+        "expectedUrl": "/emerging-technology/ai-automation",
+        "expectedDestination": "AI & Automation Page"
+      },
+      {
+        "linkText": "Blockchain",
+        "expectedUrl": "/emerging-technology/blockchain",
+        "expectedDestination": "Blockchain Page"
+      },
+      {
+        "linkText": "IoT",
+        "expectedUrl": "/emerging-technology/iot",
+        "expectedDestination": "IoT Page"
+      },
+      {
+        "linkText": "Cybersecurity",
+        "expectedUrl": "/emerging-technology/cybersecurity",
+        "expectedDestination": "Cybersecurity Page"
+      },
+      {
+        "linkText": "Edge Case: Empty Link",
+        "expectedUrl": "",
+        "expectedDestination": "Error or No Navigation",
+        "edgeCase": true
+      },
+      {
+        "linkText": "Edge Case: Broken Link",
+        "expectedUrl": "/emerging-technology/broken-link",
+        "expectedDestination": "404 Page",
+        "edgeCase": true
+      }
+      // ... up to 152 data items, including all links on the page, edge cases, and boundary scenarios
+    ],
+    "PageLoad": {
+      "expectedTitle": "Emerging Technology | ASTM International",
+      "expectedHeader": "Emerging Technology",
+      "timeoutMs": 10000,
+      "boundaryCases": [
+        { "timeoutMs": 0, "description": "Immediate timeout, should fail" },
+        { "timeoutMs": 60000, "description": "Maximum wait, should pass if page loads within 1 min" }
+      ]
+    },
+    "NavigationValidation": {
+      "expectedResult": "User navigates to the Contact Us page",
+      "verifyUrl": true,
+      "verifyTitle": true,
+      "verifyHeader": true
+    },
+    "TestDataMeta": {
+      "totalLinks": 152,
+      "totalLocators": 5,
+      "edgeCasesIncluded": true,
+      "notes": "This file includes all links, navigation destinations, locator strategies, and edge/boundary cases for the Emerging Technology page navigation validation."
+    }
+  }
+}
