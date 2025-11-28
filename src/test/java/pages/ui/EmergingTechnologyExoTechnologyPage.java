@@ -2,7 +2,6 @@ package pages.ui;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import base.utils.WaitStatementUtils;
 import base.utils.ReusableMethods;
 import base.utils.ScreenshotUtil;
