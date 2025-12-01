@@ -1,0 +1,94 @@
+{
+  "WM-222": {
+    "TestCaseID": "WM-222",
+    "TestCaseName": "Validate Page Load, Presence of All Links & Navigation",
+    "Objective": "Validate that the Exo Technology page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
+    "Priority": "Medium",
+    "Type": "UI Navigation",
+    "Locators": [
+      {
+        "name": "Main Header",
+        "locator": "//h1[contains(text(),'Exo Technology')]",
+        "type": "xpath"
+      },
+      {
+        "name": "Navigation Menu",
+        "locator": "//nav[@id='main-nav']//a",
+        "type": "xpath"
+      },
+      {
+        "name": "Footer Links",
+        "locator": "//footer//a",
+        "type": "xpath"
+      },
+      {
+        "name": "Contact Us Link",
+        "locator": "//a[contains(text(),'Contact Us')]",
+        "type": "xpath"
+      },
+      {
+        "name": "Breadcrumb Trail",
+        "locator": "//nav[@aria-label='breadcrumb']//a",
+        "type": "xpath"
+      }
+    ],
+    "TestData": {
+      "pageUrl": "https://www.example.com/exo-technology",
+      "expectedHeader": "Exo Technology",
+      "expectedLinks": [
+        { "text": "Home", "href": "/home", "expectedDestinationTitle": "Home - Exo Technology" },
+        { "text": "Solutions", "href": "/solutions", "expectedDestinationTitle": "Solutions - Exo Technology" },
+        { "text": "Products", "href": "/products", "expectedDestinationTitle": "Products - Exo Technology" },
+        { "text": "Industries", "href": "/industries", "expectedDestinationTitle": "Industries - Exo Technology" },
+        { "text": "Contact Us", "href": "/contact-us", "expectedDestinationTitle": "Contact Us - Exo Technology" }
+      ],
+      "footerLinks": [
+        { "text": "Privacy Policy", "href": "/privacy-policy" },
+        { "text": "Terms of Use", "href": "/terms-of-use" },
+        { "text": "Sitemap", "href": "/sitemap" }
+      ],
+      "mainNavLinks": [
+        "Home", "Solutions", "Products", "Industries", "Contact Us"
+      ],
+      "breadcrumbTrail": [
+        { "text": "Home", "href": "/home" },
+        { "text": "Exo Technology", "href": "/exo-technology" }
+      ],
+      "edgeCases": [
+        {
+          "description": "Link with missing href",
+          "text": "Broken Link",
+          "href": "",
+          "expectedDestinationTitle": ""
+        },
+        {
+          "description": "Link with external URL",
+          "text": "External Resource",
+          "href": "https://external.example.com/",
+          "expectedDestinationTitle": "External Resource"
+        },
+        {
+          "description": "Link with anchor only",
+          "text": "Jump to Section",
+          "href": "#section1",
+          "expectedDestinationTitle": "Exo Technology"
+        }
+      ],
+      "boundaryCases": [
+        {
+          "description": "First link in navigation",
+          "text": "Home",
+          "href": "/home",
+          "expectedDestinationTitle": "Home - Exo Technology"
+        },
+        {
+          "description": "Last link in navigation",
+          "text": "Contact Us",
+          "href": "/contact-us",
+          "expectedDestinationTitle": "Contact Us - Exo Technology"
+        }
+      ]
+    },
+    "ExpectedResult": "User navigates to the Contact Us page"
+  }
+}
