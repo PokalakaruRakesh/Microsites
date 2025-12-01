@@ -1,0 +1,153 @@
+{
+  "WM-333": {
+    "TestCaseID": "WM-333",
+    "TestCaseName": "Validate Page Load, Presence of All Links & Navigation",
+    "Objective": "Validate that the Robotics & Automation page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
+    "Priority": "Medium",
+    "Type": "No Type specified",
+    "Locators": [
+      {
+        "name": "mainHeader",
+        "locator": "//h1[contains(text(),'Robotics & Automation')]",
+        "type": "xpath"
+      },
+      {
+        "name": "navLinks",
+        "locator": "//nav//a",
+        "type": "xpath"
+      },
+      {
+        "name": "footerLinks",
+        "locator": "//footer//a",
+        "type": "xpath"
+      },
+      {
+        "name": "breadcrumbTrail",
+        "locator": "//nav[@aria-label='breadcrumb']//a",
+        "type": "xpath"
+      },
+      {
+        "name": "pageContainer",
+        "locator": "#robotics-automation-page",
+        "type": "css"
+      }
+    ],
+    "TestData": {
+      "pageUrl": "https://www.astm.org/standards-robotics-automation.html",
+      "expectedHeader": "Robotics & Automation Standards",
+      "expectedLinks": [
+        {
+          "text": "Overview",
+          "href": "/standards-robotics-automation.html#overview",
+          "expectedDestinationTitle": "Robotics & Automation Standards Overview"
+        },
+        {
+          "text": "Key Standards",
+          "href": "/standards-robotics-automation.html#key-standards",
+          "expectedDestinationTitle": "Key Robotics & Automation Standards"
+        },
+        {
+          "text": "Committees",
+          "href": "/standards-robotics-automation.html#committees",
+          "expectedDestinationTitle": "Robotics & Automation Committees"
+        },
+        {
+          "text": "Resources",
+          "href": "/standards-robotics-automation.html#resources",
+          "expectedDestinationTitle": "Robotics & Automation Resources"
+        },
+        {
+          "text": "Contact",
+          "href": "/standards-robotics-automation.html#contact",
+          "expectedDestinationTitle": "Contact Robotics & Automation Team"
+        }
+      ],
+      "footerLinks": [
+        {
+          "text": "Privacy Policy",
+          "href": "/privacy-policy.html"
+        },
+        {
+          "text": "Terms of Use",
+          "href": "/terms-of-use.html"
+        },
+        {
+          "text": "Contact Us",
+          "href": "/contact.html"
+        }
+      ],
+      "mainNavLinks": [
+        {
+          "text": "Home",
+          "href": "/"
+        },
+        {
+          "text": "Standards & Solutions",
+          "href": "/standards-and-solutions.html"
+        },
+        {
+          "text": "Membership",
+          "href": "/membership.html"
+        },
+        {
+          "text": "News",
+          "href": "/news.html"
+        },
+        {
+          "text": "Help",
+          "href": "/help.html"
+        }
+      ],
+      "breadcrumbTrail": [
+        {
+          "text": "Home",
+          "href": "/"
+        },
+        {
+          "text": "Standards & Solutions",
+          "href": "/standards-and-solutions.html"
+        },
+        {
+          "text": "Robotics & Automation",
+          "href": "/standards-robotics-automation.html"
+        }
+      ],
+      "edgeCases": [
+        {
+          "description": "Link with empty href",
+          "text": "Broken Link",
+          "href": ""
+        },
+        {
+          "description": "Link with external URL",
+          "text": "External Resource",
+          "href": "https://external-robotics.org/"
+        },
+        {
+          "description": "Link with special characters",
+          "text": "Special & Automation",
+          "href": "/standards-robotics-automation.html#special-%26-automation"
+        }
+      ],
+      "boundaryCases": [
+        {
+          "description": "Navigation to the first link",
+          "index": 0
+        },
+        {
+          "description": "Navigation to the last link",
+          "index": 4
+        },
+        {
+          "description": "Navigation with rapid clicks on multiple links",
+          "action": "Rapid multi-link click"
+        },
+        {
+          "description": "Navigation with slow network",
+          "action": "Throttle network to 2G"
+        }
+      ]
+    },
+    "ExpectedResult": "User navigates to the ASTM Compass page"
+  }
+}
