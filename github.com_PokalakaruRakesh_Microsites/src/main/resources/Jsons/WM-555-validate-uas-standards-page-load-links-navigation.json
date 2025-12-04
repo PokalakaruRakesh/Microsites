@@ -1,0 +1,110 @@
+{
+  "WM-555": {
+    "TestCaseID": "WM-555",
+    "TestCaseName": "Validate Page Load, Presence of All Links & Navigation",
+    "Objective": "Validate that the UAS standards page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
+    "Priority": "Medium",
+    "Type": "No Type specified",
+    "Locators": [
+      {
+        "name": "pageHeader",
+        "locator": "//h1[contains(text(),'UAS Standards')]",
+        "type": "xpath"
+      },
+      {
+        "name": "mainNavLinks",
+        "locator": "//nav[@id='main-nav']//a",
+        "type": "xpath"
+      },
+      {
+        "name": "footerLinks",
+        "locator": "//footer//a",
+        "type": "xpath"
+      },
+      {
+        "name": "allPageLinks",
+        "locator": "//a[not(ancestor::footer)]",
+        "type": "xpath"
+      },
+      {
+        "name": "breadcrumbTrail",
+        "locator": "//nav[@aria-label='breadcrumb']//li",
+        "type": "xpath"
+      }
+    ],
+    "TestData": {
+      "pageUrl": "https://www.example.com/uas-standards",
+      "expectedHeader": "UAS Standards",
+      "expectedLinks": [
+        { "text": "Overview", "href": "/uas-standards/overview", "expectedDestinationTitle": "UAS Standards Overview" },
+        { "text": "Committee F38", "href": "/uas-standards/committee-f38", "expectedDestinationTitle": "Committee F38 on UAS" },
+        { "text": "Publications", "href": "/uas-standards/publications", "expectedDestinationTitle": "UAS Standards Publications" },
+        { "text": "Resources", "href": "/uas-standards/resources", "expectedDestinationTitle": "UAS Standards Resources" },
+        { "text": "Contact", "href": "/uas-standards/contact", "expectedDestinationTitle": "Contact UAS Standards" },
+        { "text": "ASTM Home", "href": "/", "expectedDestinationTitle": "ASTM International - Standards Worldwide" }
+      ],
+      "footerLinks": [
+        { "text": "Privacy Policy", "href": "/privacy-policy" },
+        { "text": "Terms of Use", "href": "/terms-of-use" },
+        { "text": "Contact Us", "href": "/contact-us" },
+        { "text": "Sitemap", "href": "/sitemap" }
+      ],
+      "mainNavLinks": [
+        { "text": "Standards", "href": "/standards" },
+        { "text": "Membership", "href": "/membership" },
+        { "text": "Meetings", "href": "/meetings" },
+        { "text": "Learning", "href": "/learning" },
+        { "text": "News", "href": "/news" }
+      ],
+      "breadcrumbTrail": [
+        { "text": "Home", "href": "/" },
+        { "text": "Standards", "href": "/standards" },
+        { "text": "UAS Standards", "href": "/uas-standards" }
+      ],
+      "edgeCases": [
+        {
+          "description": "Link with empty href",
+          "text": "Broken Link",
+          "href": ""
+        },
+        {
+          "description": "Link with external URL",
+          "text": "External Resource",
+          "href": "https://external.example.com/uas-info"
+        },
+        {
+          "description": "Link with anchor only",
+          "text": "Jump to Section",
+          "href": "#section1"
+        },
+        {
+          "description": "Link with special characters",
+          "text": "Special & Chars",
+          "href": "/uas-standards/special?query=1&sort=asc"
+        }
+      ],
+      "boundaryCases": [
+        {
+          "description": "First link in navigation",
+          "index": 0,
+          "action": "Click and verify navigation"
+        },
+        {
+          "description": "Last link in navigation",
+          "index": 5,
+          "action": "Click and verify navigation"
+        },
+        {
+          "description": "Rapid clicking of all links",
+          "action": "Click all links in quick succession and verify no errors"
+        },
+        {
+          "description": "Link with long text",
+          "text": "This is a very long link text to test UI overflow handling",
+          "href": "/uas-standards/long-link-text"
+        }
+      ]
+    },
+    "ExpectedResult": "Page loads successfully with HTTP 200 and all UI elements are displayed"
+  }
+}
