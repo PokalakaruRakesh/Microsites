@@ -1,0 +1,134 @@
+{
+  "WM-666": {
+    "TestCaseID": "WM-666",
+    "TestCaseName": "Validate contact page",
+    "Objective": "No Objective specified",
+    "Priority": "Medium",
+    "Type": "No Type specified",
+    "Locators": [
+      {
+        "name": "Contact Form",
+        "locator": "//form[@id='contactForm']",
+        "type": "xpath"
+      },
+      {
+        "name": "Name Field",
+        "locator": "#contact-name",
+        "type": "css"
+      },
+      {
+        "name": "Email Field",
+        "locator": "#contact-email",
+        "type": "css"
+      },
+      {
+        "name": "Message Field",
+        "locator": "#contact-message",
+        "type": "css"
+      },
+      {
+        "name": "Submit Button",
+        "locator": "//button[@type='submit']",
+        "type": "xpath"
+      }
+    ],
+    "TestData": {
+      "pageUrl": "https://example.com/contact",
+      "expectedHeader": "Contact Us",
+      "expectedLinks": [
+        {
+          "text": "Home",
+          "href": "/home",
+          "expectedDestinationTitle": "Home Page"
+        },
+        {
+          "text": "About",
+          "href": "/about",
+          "expectedDestinationTitle": "About Us"
+        },
+        {
+          "text": "Support",
+          "href": "/support",
+          "expectedDestinationTitle": "Support"
+        }
+      ],
+      "footerLinks": [
+        "Privacy Policy",
+        "Terms of Service",
+        "Accessibility"
+      ],
+      "mainNavLinks": [
+        "Home",
+        "About",
+        "Contact",
+        "Support"
+      ],
+      "breadcrumbTrail": [
+        "Home",
+        "Contact"
+      ],
+      "formFields": [
+        {
+          "field": "Name",
+          "valid": "John Doe",
+          "invalid": "",
+          "boundary": "A"
+        },
+        {
+          "field": "Email",
+          "valid": "john.doe@example.com",
+          "invalid": "john.doe@",
+          "boundary": "a@b.c"
+        },
+        {
+          "field": "Message",
+          "valid": "This is a test message for contact page validation.",
+          "invalid": "",
+          "boundary": "M"
+        }
+      ],
+      "edgeCases": [
+        {
+          "description": "Submit with all fields empty",
+          "expectedError": "All fields are required."
+        },
+        {
+          "description": "Submit with invalid email format",
+          "expectedError": "Please enter a valid email address."
+        },
+        {
+          "description": "Submit with minimum boundary values",
+          "expectedError": "Message must be at least 2 characters."
+        },
+        {
+          "description": "Submit with maximum length values",
+          "expectedError": "Name/Message exceeds maximum length."
+        }
+      ],
+      "boundaryCases": [
+        {
+          "field": "Name",
+          "minLength": 1,
+          "maxLength": 100,
+          "minValue": "A",
+          "maxValue": "A very long name that is exactly one hundred characters long AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "field": "Email",
+          "minLength": 5,
+          "maxLength": 254,
+          "minValue": "a@b.c",
+          "maxValue": "verylongemailaddress_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@example.com"
+        },
+        {
+          "field": "Message",
+          "minLength": 2,
+          "maxLength": 1000,
+          "minValue": "Hi",
+          "maxValue": "M".repeat(1000)
+        }
+      ]
+    },
+    "ExpectedResult": "Page launched successfully"
+  }
+}
