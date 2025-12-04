@@ -7,28 +7,28 @@
     "Type": "No Type specified",
     "Locators": [
       {
-        "name": "headerMain",
-        "locator": "//h1[contains(text(), 'Helping Our World Work Better')]",
+        "name": "Header_Main",
+        "locator": "//h1[contains(text(),'Helping Our World Work Better')]",
         "type": "xpath"
       },
       {
-        "name": "mainNavBar",
+        "name": "Main_Navigation",
         "locator": "//nav[@id='main-nav']",
         "type": "xpath"
       },
       {
-        "name": "footer",
+        "name": "Footer",
         "locator": "//footer",
         "type": "xpath"
       },
       {
-        "name": "searchBox",
-        "locator": "#search-input",
-        "type": "css"
+        "name": "Banner_Image",
+        "locator": "//div[contains(@class,'banner-image')]",
+        "type": "xpath"
       },
       {
-        "name": "ctaButton",
-        "locator": "//a[contains(@class, 'cta-button')]",
+        "name": "Search_Box",
+        "locator": "//input[@type='search']",
         "type": "xpath"
       }
     ],
@@ -37,52 +37,38 @@
       "expectedHeader": "Helping Our World Work Better",
       "expectedLinks": [
         {
-          "text": "About ASTM",
+          "text": "About Us",
           "href": "/about",
-          "expectedDestinationTitle": "About ASTM International"
+          "expectedDestinationTitle": "About Us - Example"
+        },
+        {
+          "text": "Standards",
+          "href": "/standards",
+          "expectedDestinationTitle": "Standards - Example"
         },
         {
           "text": "Membership",
           "href": "/membership",
-          "expectedDestinationTitle": "Membership & Participation"
+          "expectedDestinationTitle": "Membership - Example"
         },
         {
-          "text": "Standards & Solutions",
-          "href": "/standards",
-          "expectedDestinationTitle": "Standards & Solutions"
-        },
-        {
-          "text": "News",
-          "href": "/news",
-          "expectedDestinationTitle": "News"
-        },
-        {
-          "text": "Help",
-          "href": "/help",
-          "expectedDestinationTitle": "Help Center"
+          "text": "Contact",
+          "href": "/contact",
+          "expectedDestinationTitle": "Contact - Example"
         }
       ],
       "footerLinks": [
-        {
-          "text": "Privacy Policy",
-          "href": "/privacy-policy"
-        },
-        {
-          "text": "Terms of Use",
-          "href": "/terms"
-        },
-        {
-          "text": "Contact Us",
-          "href": "/contact"
-        }
+        "Privacy Policy",
+        "Terms of Use",
+        "Cookie Policy",
+        "Accessibility"
       ],
       "mainNavLinks": [
         "Home",
-        "About ASTM",
+        "About Us",
+        "Standards",
         "Membership",
-        "Standards & Solutions",
-        "News",
-        "Help"
+        "Contact"
       ],
       "breadcrumbTrail": [
         "Home"
@@ -90,40 +76,29 @@
       "edgeCases": [
         {
           "description": "Header missing",
-          "expectedResult": "Test fails if the main header is not present."
+          "expectedHeader": ""
         },
         {
-          "description": "Header text case sensitivity",
-          "expectedResult": "Test passes if header matches regardless of case."
+          "description": "Header text in lowercase",
+          "expectedHeader": "helping our world work better"
         },
         {
-          "description": "Header present but partially visible",
-          "expectedResult": "Test fails if header is not fully visible."
+          "description": "Header partially visible",
+          "expectedHeader": "Helping Our World"
         },
         {
-          "description": "Navigation links missing",
-          "expectedResult": "Test fails if any main navigation link is missing."
-        },
-        {
-          "description": "Footer links not clickable",
-          "expectedResult": "Test fails if footer links are not clickable."
+          "description": "Header with extra whitespace",
+          "expectedHeader": "  Helping Our World Work Better  "
         }
       ],
       "boundaryCases": [
         {
-          "description": "Extremely long header text",
-          "testData": "Helping Our World Work Better - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "expectedResult": "Test passes if only the expected header is present, fails if extra text is appended."
+          "description": "Header at maximum allowed length",
+          "expectedHeader": "Helping Our World Work Better" + "A".repeat(150)
         },
         {
-          "description": "Empty header",
-          "testData": "",
-          "expectedResult": "Test fails if header is empty."
-        },
-        {
-          "description": "Whitespace in header",
-          "testData": "   Helping Our World Work Better   ",
-          "expectedResult": "Test passes if header matches after trimming whitespace."
+          "description": "Header at minimum allowed length",
+          "expectedHeader": "H"
         }
       ]
     },
