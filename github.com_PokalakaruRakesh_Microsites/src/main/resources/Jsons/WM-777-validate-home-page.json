@@ -1,0 +1,132 @@
+{
+  "WM-777": {
+    "TestCaseID": "WM-777",
+    "TestCaseName": "ValidateHome page",
+    "Objective": "Validate that the Home page",
+    "Priority": "Medium",
+    "Type": "No Type specified",
+    "Locators": [
+      {
+        "name": "headerMain",
+        "locator": "//h1[contains(text(), 'Helping Our World Work Better')]",
+        "type": "xpath"
+      },
+      {
+        "name": "mainNavBar",
+        "locator": "//nav[@id='main-nav']",
+        "type": "xpath"
+      },
+      {
+        "name": "footer",
+        "locator": "//footer",
+        "type": "xpath"
+      },
+      {
+        "name": "searchBox",
+        "locator": "#search-input",
+        "type": "css"
+      },
+      {
+        "name": "ctaButton",
+        "locator": "//a[contains(@class, 'cta-button')]",
+        "type": "xpath"
+      }
+    ],
+    "TestData": {
+      "pageUrl": "https://www.example.com/home",
+      "expectedHeader": "Helping Our World Work Better",
+      "expectedLinks": [
+        {
+          "text": "About ASTM",
+          "href": "/about",
+          "expectedDestinationTitle": "About ASTM International"
+        },
+        {
+          "text": "Membership",
+          "href": "/membership",
+          "expectedDestinationTitle": "Membership & Participation"
+        },
+        {
+          "text": "Standards & Solutions",
+          "href": "/standards",
+          "expectedDestinationTitle": "Standards & Solutions"
+        },
+        {
+          "text": "News",
+          "href": "/news",
+          "expectedDestinationTitle": "News"
+        },
+        {
+          "text": "Help",
+          "href": "/help",
+          "expectedDestinationTitle": "Help Center"
+        }
+      ],
+      "footerLinks": [
+        {
+          "text": "Privacy Policy",
+          "href": "/privacy-policy"
+        },
+        {
+          "text": "Terms of Use",
+          "href": "/terms"
+        },
+        {
+          "text": "Contact Us",
+          "href": "/contact"
+        }
+      ],
+      "mainNavLinks": [
+        "Home",
+        "About ASTM",
+        "Membership",
+        "Standards & Solutions",
+        "News",
+        "Help"
+      ],
+      "breadcrumbTrail": [
+        "Home"
+      ],
+      "edgeCases": [
+        {
+          "description": "Header missing",
+          "expectedResult": "Test fails if the main header is not present."
+        },
+        {
+          "description": "Header text case sensitivity",
+          "expectedResult": "Test passes if header matches regardless of case."
+        },
+        {
+          "description": "Header present but partially visible",
+          "expectedResult": "Test fails if header is not fully visible."
+        },
+        {
+          "description": "Navigation links missing",
+          "expectedResult": "Test fails if any main navigation link is missing."
+        },
+        {
+          "description": "Footer links not clickable",
+          "expectedResult": "Test fails if footer links are not clickable."
+        }
+      ],
+      "boundaryCases": [
+        {
+          "description": "Extremely long header text",
+          "testData": "Helping Our World Work Better - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "expectedResult": "Test passes if only the expected header is present, fails if extra text is appended."
+        },
+        {
+          "description": "Empty header",
+          "testData": "",
+          "expectedResult": "Test fails if header is empty."
+        },
+        {
+          "description": "Whitespace in header",
+          "testData": "   Helping Our World Work Better   ",
+          "expectedResult": "Test passes if header matches after trimming whitespace."
+        }
+      ]
+    },
+    "ExpectedResult": "user able to see Helping Our World Work Better header"
+  }
+}
