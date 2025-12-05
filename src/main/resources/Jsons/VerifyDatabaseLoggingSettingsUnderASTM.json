@@ -1,0 +1,87 @@
+{
+  "VerifyDatabaseLoggingSettingsUnderASTM": {
+    "TestCaseID": "TC-001",
+    "Objective": "Verify Admin user can log in, navigate to SYSTEM → Configuration → ASTM → Database Logging, and validate the page displays exactly 5 configurable settings. Configuration should get saved successfully.",
+    "Priority": "Medium",
+    "Preconditions": "None",
+    "Postconditions": "None",
+    "Locators": {
+      "usernameField": "#username", // Example locator, replace with actual
+      "passwordField": "#password", // Example locator, replace with actual
+      "loginButton": "#loginBtn",   // Example locator, replace with actual
+      "systemMenu": "#menu_system", // Example locator, replace with actual
+      "databaseLoggingMenu": "#menu_database_logging" // Example locator, replace with actual
+    },
+    "ValidCredentials": [
+      {
+        "username": "admin",
+        "password": "Admin@123"
+      },
+      {
+        "username": "administrator",
+        "password": "Password!2024"
+      }
+    ],
+    "DatabaseLoggingSettings": [
+      {
+        "settingName": "Enable Logging",
+        "type": "boolean",
+        "validValues": [true, false],
+        "edgeCases": [true, false]
+      },
+      {
+        "settingName": "Log Retention Days",
+        "type": "integer",
+        "validValues": [1, 30, 365],
+        "edgeCases": [0, 1, 9999, -1, 2147483647]
+      },
+      {
+        "settingName": "Log Level",
+        "type": "enum",
+        "validValues": ["INFO", "DEBUG", "ERROR", "WARN", "TRACE"],
+        "edgeCases": ["", null, "INVALID"]
+      },
+      {
+        "settingName": "Max Log File Size (MB)",
+        "type": "integer",
+        "validValues": [10, 100, 1024],
+        "edgeCases": [0, 1, 99999, -1, 2147483647]
+      },
+      {
+        "settingName": "Archive Logs",
+        "type": "boolean",
+        "validValues": [true, false],
+        "edgeCases": [true, false]
+      }
+    ],
+    "NegativeTestData": [
+      {
+        "settingName": "Log Retention Days",
+        "invalidValues": ["abc", -10, 0, null]
+      },
+      {
+        "settingName": "Log Level",
+        "invalidValues": ["VERBOSE", "", null]
+      },
+      {
+        "settingName": "Max Log File Size (MB)",
+        "invalidValues": ["large", -100, 0, null]
+      }
+    ],
+    "ExpectedResults": {
+      "settingsCount": 5,
+      "saveSuccessMessage": "Configuration saved successfully.",
+      "validationMessages": {
+        "LogRetentionDays": "Value must be greater than 0.",
+        "LogLevel": "Invalid log level selected.",
+        "MaxLogFileSize": "Value must be greater than 0."
+      }
+    },
+    "EdgeCases": {
+      "MaxInteger": 2147483647,
+      "MinInteger": 0,
+      "EmptyString": "",
+      "NullValue": null
+    }
+  }
+}

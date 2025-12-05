@@ -1,0 +1,13 @@
+settingName,inputValue,expectedResult
+Log Retention Days,-1,Value must be greater than 0.
+Log Retention Days,0,Value must be greater than 0.
+Log Retention Days,2147483647,Configuration saved successfully.
+Log Level,INVALID,Invalid log level selected.
+Log Level,,Invalid log level selected.
+Max Log File Size (MB),-1,Value must be greater than 0.
+Max Log File Size (MB),0,Value must be greater than 0.
+Max Log File Size (MB),2147483647,Configuration saved successfully.
+Enable Logging,true,Configuration saved successfully.
+Enable Logging,false,Configuration saved successfully.
+Archive Logs,true,Configuration saved successfully.
+Archive Logs,false,Configuration saved successfully.
