@@ -1,0 +1,147 @@
+{
+  "WM-444": {
+    "TestCaseID": "WM-444",
+    "Name": "Validate Page Load, Presence of All Links & Navigation",
+    "Objective": "Validate that the Additive Manufacturing page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
+    "Priority": "Medium",
+    "Type": "Functional",
+    "ExpectedResult": "User navigates to /standards-and-solutions/enterprise-solutions/salesforce"
+  },
+  "PageLoad": {
+    "PageURL": "/standards-and-solutions/enterprise-solutions/additive-manufacturing",
+    "ExpectedTitle": "Additive Manufacturing | ASTM International Enterprise Solutions",
+    "ExpectedStatusCode": 200,
+    "EdgeCases": [
+      { "PageURL": "", "Description": "Empty URL should not load" },
+      { "PageURL": "/standards-and-solutions/enterprise-solutions/additive-manufacturing?param=invalid", "Description": "Invalid query param" }
+    ]
+  },
+  "Links": [
+    {
+      "LinkText": "Salesforce Integration",
+      "Locator": "//a[contains(text(),'Salesforce Integration')]",
+      "ExpectedHref": "/standards-and-solutions/enterprise-solutions/salesforce",
+      "ExpectedNavigation": true
+    },
+    {
+      "LinkText": "Digital Library",
+      "Locator": "//a[contains(text(),'Digital Library')]",
+      "ExpectedHref": "/standards-and-solutions/enterprise-solutions/digital-library",
+      "ExpectedNavigation": true
+    },
+    {
+      "LinkText": "Market Insights",
+      "Locator": "//a[contains(text(),'Market Insights')]",
+      "ExpectedHref": "/standards-and-solutions/enterprise-solutions/market-insights",
+      "ExpectedNavigation": true
+    },
+    {
+      "LinkText": "Laboratory Services",
+      "Locator": "//a[contains(text(),'Laboratory Services')]",
+      "ExpectedHref": "/standards-and-solutions/enterprise-solutions/laboratory-services",
+      "ExpectedNavigation": true
+    },
+    {
+      "LinkText": "Training & Certification",
+      "Locator": "//a[contains(text(),'Training & Certification')]",
+      "ExpectedHref": "/standards-and-solutions/enterprise-solutions/training-certification",
+      "ExpectedNavigation": true
+    }
+  ],
+  "NavigationValidation": [
+    {
+      "LinkText": "Salesforce Integration",
+      "ClickAction": true,
+      "ExpectedURL": "/standards-and-solutions/enterprise-solutions/salesforce",
+      "ExpectedTitle": "Salesforce Integration | ASTM International",
+      "BoundaryCases": [
+        { "ClickAction": false, "ExpectedURL": "", "Description": "No navigation if link not clicked" },
+        { "ClickAction": true, "ExpectedURL": "/standards-and-solutions/enterprise-solutions/salesforce", "Description": "Normal navigation" }
+      ]
+    },
+    {
+      "LinkText": "Digital Library",
+      "ClickAction": true,
+      "ExpectedURL": "/standards-and-solutions/enterprise-solutions/digital-library",
+      "ExpectedTitle": "Digital Library | ASTM International"
+    },
+    {
+      "LinkText": "Market Insights",
+      "ClickAction": true,
+      "ExpectedURL": "/standards-and-solutions/enterprise-solutions/market-insights",
+      "ExpectedTitle": "Market Insights | ASTM International"
+    },
+    {
+      "LinkText": "Laboratory Services",
+      "ClickAction": true,
+      "ExpectedURL": "/standards-and-solutions/enterprise-solutions/laboratory-services",
+      "ExpectedTitle": "Laboratory Services | ASTM International"
+    },
+    {
+      "LinkText": "Training & Certification",
+      "ClickAction": true,
+      "ExpectedURL": "/standards-and-solutions/enterprise-solutions/training-certification",
+      "ExpectedTitle": "Training & Certification | ASTM International"
+    }
+  ],
+  "Locators": [
+    {
+      "Name": "SalesforceLink",
+      "Type": "XPath",
+      "Value": "//a[contains(text(),'Salesforce Integration')]"
+    },
+    {
+      "Name": "DigitalLibraryLink",
+      "Type": "XPath",
+      "Value": "//a[contains(text(),'Digital Library')]"
+    },
+    {
+      "Name": "MarketInsightsLink",
+      "Type": "XPath",
+      "Value": "//a[contains(text(),'Market Insights')]"
+    },
+    {
+      "Name": "LaboratoryServicesLink",
+      "Type": "XPath",
+      "Value": "//a[contains(text(),'Laboratory Services')]"
+    },
+    {
+      "Name": "TrainingCertificationLink",
+      "Type": "XPath",
+      "Value": "//a[contains(text(),'Training & Certification')]"
+    }
+  ],
+  "NegativeScenarios": [
+    {
+      "Description": "Broken link",
+      "LinkText": "NonExistentLink",
+      "Locator": "//a[contains(text(),'NonExistentLink')]",
+      "ExpectedHref": "#",
+      "ExpectedNavigation": false
+    },
+    {
+      "Description": "Link with empty href",
+      "LinkText": "EmptyHrefLink",
+      "Locator": "//a[contains(text(),'EmptyHrefLink')]",
+      "ExpectedHref": "",
+      "ExpectedNavigation": false
+    }
+  ],
+  "EdgeCases": [
+    {
+      "Description": "Link opens in new tab",
+      "LinkText": "External Resource",
+      "Locator": "//a[contains(text(),'External Resource')]",
+      "ExpectedHref": "https://external.example.com",
+      "Target": "_blank",
+      "ExpectedNavigation": true
+    },
+    {
+      "Description": "Link with special characters",
+      "LinkText": "Special & Characters",
+      "Locator": "//a[contains(text(),'Special & Characters')]",
+      "ExpectedHref": "/standards-and-solutions/enterprise-solutions/special-characters",
+      "ExpectedNavigation": true
+    }
+  ]
+}
