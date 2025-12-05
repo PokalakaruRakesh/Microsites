@@ -1,0 +1,157 @@
+{
+  "WM-444": {
+    "TestCaseID": "WM-444",
+    "TestCaseName": "Validate Page Load, Presence of All Links & Navigation",
+    "Objective": "Validate that the Additive Manufacturing page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
+    "Priority": "Medium",
+    "Type": "Functional",
+    "Page": "Additive Manufacturing",
+    "ExpectedResult": "User navigates to /standards-and-solutions/enterprise-solutions/salesforce"
+  },
+  "PageLoad": {
+    "url": "/standards-and-solutions/enterprise-solutions/additive-manufacturing",
+    "expectedTitle": "Additive Manufacturing | ASTM International",
+    "expectedStatusCode": 200,
+    "timeoutMs": 10000
+  },
+  "Links": [
+    {
+      "linkText": "Salesforce Integration",
+      "locator": "//a[contains(text(), 'Salesforce Integration')]",
+      "expectedHref": "/standards-and-solutions/enterprise-solutions/salesforce",
+      "expectedNavigationTitle": "Salesforce Integration | ASTM International"
+    },
+    {
+      "linkText": "Digital Thread",
+      "locator": "//a[contains(text(), 'Digital Thread')]",
+      "expectedHref": "/standards-and-solutions/enterprise-solutions/digital-thread",
+      "expectedNavigationTitle": "Digital Thread | ASTM International"
+    },
+    {
+      "linkText": "Data Management",
+      "locator": "//a[contains(text(), 'Data Management')]",
+      "expectedHref": "/standards-and-solutions/enterprise-solutions/data-management",
+      "expectedNavigationTitle": "Data Management | ASTM International"
+    },
+    {
+      "linkText": "Certification",
+      "locator": "//a[contains(text(), 'Certification')]",
+      "expectedHref": "/standards-and-solutions/enterprise-solutions/certification",
+      "expectedNavigationTitle": "Certification | ASTM International"
+    },
+    {
+      "linkText": "Resources",
+      "locator": "//a[contains(text(), 'Resources')]",
+      "expectedHref": "/standards-and-solutions/enterprise-solutions/resources",
+      "expectedNavigationTitle": "Resources | ASTM International"
+    }
+  ],
+  "EdgeCases": [
+    {
+      "description": "Link with empty href",
+      "linkText": "Broken Link",
+      "locator": "//a[contains(text(), 'Broken Link')]",
+      "expectedHref": "",
+      "expectedNavigationTitle": ""
+    },
+    {
+      "description": "Link with external URL",
+      "linkText": "ASTM Home",
+      "locator": "//a[contains(text(), 'ASTM Home')]",
+      "expectedHref": "https://www.astm.org/",
+      "expectedNavigationTitle": "ASTM International - Standards Worldwide"
+    },
+    {
+      "description": "Link opens in new tab",
+      "linkText": "External Resource",
+      "locator": "//a[contains(text(), 'External Resource')]",
+      "expectedHref": "https://external.resource.com/",
+      "target": "_blank",
+      "expectedNavigationTitle": "External Resource"
+    }
+  ],
+  "Locators": [
+    {
+      "name": "PageHeader",
+      "locator": "//h1[contains(text(), 'Additive Manufacturing')]"
+    },
+    {
+      "name": "LinksSection",
+      "locator": "//section[@id='links-list']"
+    },
+    {
+      "name": "Footer",
+      "locator": "//footer"
+    },
+    {
+      "name": "NavigationBar",
+      "locator": "//nav[@id='main-navigation']"
+    },
+    {
+      "name": "Breadcrumbs",
+      "locator": "//nav[@aria-label='Breadcrumb']"
+    }
+  ],
+  "NavigationScenarios": [
+    {
+      "step": 1,
+      "action": "Click link",
+      "linkText": "Salesforce Integration",
+      "expectedUrl": "/standards-and-solutions/enterprise-solutions/salesforce",
+      "expectedTitle": "Salesforce Integration | ASTM International"
+    },
+    {
+      "step": 2,
+      "action": "Click link",
+      "linkText": "Digital Thread",
+      "expectedUrl": "/standards-and-solutions/enterprise-solutions/digital-thread",
+      "expectedTitle": "Digital Thread | ASTM International"
+    },
+    {
+      "step": 3,
+      "action": "Click link",
+      "linkText": "Data Management",
+      "expectedUrl": "/standards-and-solutions/enterprise-solutions/data-management",
+      "expectedTitle": "Data Management | ASTM International"
+    },
+    {
+      "step": 4,
+      "action": "Click link",
+      "linkText": "Certification",
+      "expectedUrl": "/standards-and-solutions/enterprise-solutions/certification",
+      "expectedTitle": "Certification | ASTM International"
+    },
+    {
+      "step": 5,
+      "action": "Click link",
+      "linkText": "Resources",
+      "expectedUrl": "/standards-and-solutions/enterprise-solutions/resources",
+      "expectedTitle": "Resources | ASTM International"
+    }
+  ],
+  "BoundaryValues": [
+    {
+      "description": "First link in the list",
+      "linkText": "Salesforce Integration",
+      "expectedHref": "/standards-and-solutions/enterprise-solutions/salesforce"
+    },
+    {
+      "description": "Last link in the list",
+      "linkText": "Resources",
+      "expectedHref": "/standards-and-solutions/enterprise-solutions/resources"
+    }
+  ],
+  "NegativeScenarios": [
+    {
+      "description": "Clicking a non-existent link",
+      "linkText": "NonExistentLink",
+      "expectedResult": "No navigation occurs, error logged"
+    },
+    {
+      "description": "Page fails to load",
+      "url": "/standards-and-solutions/enterprise-solutions/additive-manufacturing",
+      "expectedStatusCode": 404,
+      "expectedResult": "Display error page"
+    }
+  ]
+}
