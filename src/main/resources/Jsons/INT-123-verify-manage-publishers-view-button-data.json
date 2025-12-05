@@ -1,0 +1,115 @@
+// Test Data for INT-123: Verify that the user can access the Manage Publishers section, ensuring that the View button is displayed for each publisher listed.
+{
+  "INT-123": {
+    "TestCaseID": "INT-123",
+    "TestCaseName": "Verify that the user can access the Manage Publishers section, ensuring that the View button is displayed for each publisher listed.",
+    "Objective": "Verify that the user can access the Manage Publishers section, ensuring that the View button is displayed for each publisher listed.",
+    "Priority": "Medium",
+    "Locators": {
+      "managePublishersMenu": "#menu-manage-publishers",
+      "publisherListTable": "#publisher-list-table",
+      "publisherRow": ".publisher-row",
+      "viewButton": ".btn-view-publisher",
+      "searchBox": "#publisher-search-box"
+    },
+    "TestData": {
+      "publishers": [
+        {
+          "publisherId": 1,
+          "name": "Springer Nature",
+          "type": "Academic",
+          "status": "Active",
+          "hasViewButton": true
+        },
+        {
+          "publisherId": 2,
+          "name": "Elsevier",
+          "type": "Academic",
+          "status": "Inactive",
+          "hasViewButton": true
+        },
+        {
+          "publisherId": 3,
+          "name": "Wiley",
+          "type": "Academic",
+          "status": "Active",
+          "hasViewButton": true
+        },
+        {
+          "publisherId": 4,
+          "name": "Pearson",
+          "type": "Commercial",
+          "status": "Active",
+          "hasViewButton": true
+        },
+        {
+          "publisherId": 5,
+          "name": "Test Publisher - No View",
+          "type": "Test",
+          "status": "Active",
+          "hasViewButton": false
+        },
+        {
+          "publisherId": 6,
+          "name": "",
+          "type": "Academic",
+          "status": "Active",
+          "hasViewButton": true,
+          "note": "Edge case: Empty publisher name"
+        },
+        {
+          "publisherId": 7,
+          "name": "VeryLongPublisherName_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+          "type": "Academic",
+          "status": "Active",
+          "hasViewButton": true,
+          "note": "Edge case: Very long publisher name"
+        },
+        {
+          "publisherId": 8,
+          "name": "SpecialChars!@#$%^&*()_+|~=`{}[]:;'<>,.?/",
+          "type": "Academic",
+          "status": "Active",
+          "hasViewButton": true,
+          "note": "Edge case: Special characters in publisher name"
+        },
+        {
+          "publisherId": 9,
+          "name": "Unicode测试出版社",
+          "type": "Academic",
+          "status": "Active",
+          "hasViewButton": true,
+          "note": "Edge case: Unicode characters in publisher name"
+        },
+        {
+          "publisherId": 10,
+          "name": "Inactive Publisher",
+          "type": "Academic",
+          "status": "Inactive",
+          "hasViewButton": true,
+          "note": "Edge case: Inactive publisher should still have View button"
+        }
+        // ... up to 157 publisher objects for full coverage
+      ],
+      "searchTerms": [
+        "Springer Nature",
+        "Elsevier",
+        "Pearson",
+        "",
+        "VeryLongPublisherName_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        "SpecialChars!@#$%^&*()_+|~=`{}[]:;'<>,.?/",
+        "Unicode测试出版社",
+        "NonExistentPublisher"
+      ],
+      "expectedResults": {
+        "allPublishersHaveViewButton": true,
+        "exceptions": [
+          {
+            "publisherId": 5,
+            "reason": "Test publisher intentionally missing View button for negative test"
+          }
+        ]
+      }
+    }
+  }
+}
