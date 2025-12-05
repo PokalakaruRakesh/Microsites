@@ -4,16 +4,16 @@
     "TestCaseName": "Validate Page Load, Presence of All Links & Navigation",
     "Objective": "Validate that the Additive Manufacturing page loads successfully, all links are displayed, and each link navigates to the correct destination when clicked",
     "Priority": "Medium",
-    "Type": "Functional",
+    "Type": "UI Navigation",
     "Locators": [
       {
-        "name": "pageHeader",
+        "name": "mainHeader",
         "locator": "//h1[contains(text(),'Additive Manufacturing')]",
         "type": "xpath"
       },
       {
         "name": "mainNavLinks",
-        "locator": "//nav[contains(@class,'main-nav')]//a",
+        "locator": "//nav[@id='main-nav']//a",
         "type": "xpath"
       },
       {
@@ -23,7 +23,7 @@
       },
       {
         "name": "breadcrumbTrail",
-        "locator": "//nav[contains(@aria-label,'breadcrumb')]//a",
+        "locator": "//nav[@aria-label='breadcrumb']//li",
         "type": "xpath"
       },
       {
@@ -33,47 +33,47 @@
       }
     ],
     "TestData": {
-      "pageUrl": "/standards-and-solutions/enterprise-solutions/additive-manufacturing",
+      "pageUrl": "https://www.astm.org/additive-manufacturing.html",
       "expectedHeader": "Additive Manufacturing",
       "expectedLinks": [
         {
           "text": "Overview",
-          "href": "/standards-and-solutions/enterprise-solutions/additive-manufacturing/overview",
-          "expectedDestinationTitle": "Overview - Additive Manufacturing"
+          "href": "/additive-manufacturing/overview.html",
+          "expectedDestinationTitle": "Additive Manufacturing Overview"
         },
         {
           "text": "Standards",
-          "href": "/standards-and-solutions/enterprise-solutions/additive-manufacturing/standards",
-          "expectedDestinationTitle": "Standards - Additive Manufacturing"
+          "href": "/additive-manufacturing/standards.html",
+          "expectedDestinationTitle": "Additive Manufacturing Standards"
         },
         {
-          "text": "Case Studies",
-          "href": "/standards-and-solutions/enterprise-solutions/additive-manufacturing/case-studies",
-          "expectedDestinationTitle": "Case Studies - Additive Manufacturing"
+          "text": "Committees",
+          "href": "/additive-manufacturing/committees.html",
+          "expectedDestinationTitle": "Additive Manufacturing Committees"
         },
         {
           "text": "Resources",
-          "href": "/standards-and-solutions/enterprise-solutions/additive-manufacturing/resources",
-          "expectedDestinationTitle": "Resources - Additive Manufacturing"
+          "href": "/additive-manufacturing/resources.html",
+          "expectedDestinationTitle": "Additive Manufacturing Resources"
         },
         {
-          "text": "Contact Us",
-          "href": "/standards-and-solutions/enterprise-solutions/additive-manufacturing/contact",
-          "expectedDestinationTitle": "Contact Us - Additive Manufacturing"
+          "text": "Contact",
+          "href": "/additive-manufacturing/contact.html",
+          "expectedDestinationTitle": "Contact Additive Manufacturing"
         }
       ],
       "footerLinks": [
         {
           "text": "Privacy Policy",
-          "href": "/privacy-policy"
+          "href": "/privacy-policy.html"
         },
         {
           "text": "Terms of Use",
-          "href": "/terms-of-use"
+          "href": "/terms-of-use.html"
         },
         {
-          "text": "Sitemap",
-          "href": "/sitemap"
+          "text": "Contact Us",
+          "href": "/contact.html"
         }
       ],
       "mainNavLinks": [
@@ -82,16 +82,20 @@
           "href": "/"
         },
         {
-          "text": "Standards & Solutions",
-          "href": "/standards-and-solutions"
+          "text": "Standards",
+          "href": "/standards.html"
         },
         {
-          "text": "Enterprise Solutions",
-          "href": "/standards-and-solutions/enterprise-solutions"
+          "text": "Membership",
+          "href": "/membership.html"
         },
         {
-          "text": "Additive Manufacturing",
-          "href": "/standards-and-solutions/enterprise-solutions/additive-manufacturing"
+          "text": "News",
+          "href": "/news.html"
+        },
+        {
+          "text": "Help",
+          "href": "/help.html"
         }
       ],
       "breadcrumbTrail": [
@@ -100,52 +104,40 @@
           "href": "/"
         },
         {
-          "text": "Standards & Solutions",
-          "href": "/standards-and-solutions"
-        },
-        {
-          "text": "Enterprise Solutions",
-          "href": "/standards-and-solutions/enterprise-solutions"
-        },
-        {
           "text": "Additive Manufacturing",
-          "href": "/standards-and-solutions/enterprise-solutions/additive-manufacturing"
+          "href": "/additive-manufacturing.html"
         }
       ],
       "edgeCases": [
         {
-          "description": "Link with empty href",
-          "text": "Broken Link",
-          "href": ""
+          "description": "Verify behavior when a link is broken (HTTP 404)",
+          "link": "/additive-manufacturing/broken-link.html",
+          "expected": "404 error page is displayed"
         },
         {
-          "description": "Link with external URL",
-          "text": "External Resource",
-          "href": "https://externaldomain.com/resource"
+          "description": "Verify navigation when user is not logged in (if applicable)",
+          "link": "/additive-manufacturing/resources.html",
+          "expected": "Page loads without login prompt"
         },
         {
-          "description": "Link with special characters in URL",
-          "text": "Special Characters",
-          "href": "/standards-and-solutions/enterprise-solutions/additive-manufacturing/special?query=1&sort=asc"
+          "description": "Verify navigation with query parameters",
+          "link": "/additive-manufacturing/overview.html?ref=test",
+          "expected": "Page loads and query parameter is ignored or handled"
         }
       ],
       "boundaryCases": [
         {
-          "description": "First link in navigation",
-          "index": 0,
-          "action": "Click first link and verify navigation"
+          "description": "Test with maximum allowed URL length",
+          "link": "/additive-manufacturing/overview.html?param=" + "a".repeat(2000),
+          "expected": "Page loads or appropriate error is shown"
         },
         {
-          "description": "Last link in navigation",
-          "index": 4,
-          "action": "Click last link and verify navigation"
-        },
-        {
-          "description": "Click link when page is loading (simulate slow network)",
-          "action": "Click navigation link before page fully loads and verify error handling"
+          "description": "Test with special characters in URL",
+          "link": "/additive-manufacturing/overview.html?param=%20%21%40%23%24",
+          "expected": "Page loads and special characters are handled"
         }
       ]
     },
-    "ExpectedResult": "User navigates to /standards-and-solutions/enterprise-solutions/salesforce"
+    "ExpectedResult": "Page loads successfully with HTTP 200 and all UI elements are displayed"
   }
 }
