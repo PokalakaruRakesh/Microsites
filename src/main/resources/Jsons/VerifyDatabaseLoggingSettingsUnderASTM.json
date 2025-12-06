@@ -1,0 +1,129 @@
+{
+  "VerifyDatabaseLoggingSettingsUnderASTM": {
+    "TestCaseID": "TC-001",
+    "Objective": "Verify Admin can login and access SYSTEM → Configuration → ASTM → Database Logging, and that the page loads with exactly 5 configurable settings.",
+    "Priority": "Medium",
+    "Preconditions": "None",
+    "Postconditions": "None",
+    "ExpectedResult": "Configuration should get save successfully",
+    "Login": {
+      "Username": "admin",
+      "Password": "Admin@123",
+      "InvalidUsername": "admin_wrong",
+      "InvalidPassword": "wrongpass",
+      "EdgeCases": [
+        { "Username": "", "Password": "Admin@123", "Description": "Empty username" },
+        { "Username": "admin", "Password": "", "Description": "Empty password" },
+        { "Username": "admin", "Password": "wrongpass", "Description": "Incorrect password" },
+        { "Username": "admin_wrong", "Password": "Admin@123", "Description": "Incorrect username" }
+      ]
+    },
+    "Navigation": {
+      "MenuPath": ["SYSTEM", "Configuration", "ASTM", "Database Logging"],
+      "Locators": [
+        { "name": "SystemMenu", "type": "xpath", "value": "//a[text()='SYSTEM']" },
+        { "name": "ConfigurationMenu", "type": "xpath", "value": "//a[text()='Configuration']" },
+        { "name": "ASTMMenu", "type": "xpath", "value": "//a[text()='ASTM']" },
+        { "name": "DatabaseLoggingMenu", "type": "xpath", "value": "//a[text()='Database Logging']" },
+        { "name": "SaveButton", "type": "xpath", "value": "//button[text()='Save']" }
+      ]
+    },
+    "DatabaseLoggingSettings": {
+      "SettingsCount": 5,
+      "Settings": [
+        {
+          "name": "EnableLogging",
+          "type": "boolean",
+          "validValues": [true, false],
+          "edgeCases": [null]
+        },
+        {
+          "name": "LogLevel",
+          "type": "enum",
+          "validValues": ["DEBUG", "INFO", "WARN", "ERROR", "FATAL"],
+          "edgeCases": ["", "INVALID"]
+        },
+        {
+          "name": "MaxLogSizeMB",
+          "type": "integer",
+          "validValues": [10, 50, 100, 500, 1024],
+          "edgeCases": [-1, 0, 2147483647]
+        },
+        {
+          "name": "LogRetentionDays",
+          "type": "integer",
+          "validValues": [7, 30, 90, 365],
+          "edgeCases": [-1, 0, 9999]
+        },
+        {
+          "name": "LogDestination",
+          "type": "enum",
+          "validValues": ["LOCAL", "REMOTE", "CLOUD"],
+          "edgeCases": ["", "UNKNOWN"]
+        }
+      ]
+    },
+    "SaveConfig": {
+      "Action": "Click Save Button",
+      "ExpectedResult": "Configuration should get save successfully",
+      "EdgeCases": [
+        { "Description": "Try saving with missing required fields", "ExpectedError": "All fields are required" },
+        { "Description": "Try saving with invalid data types", "ExpectedError": "Invalid input" }
+      ]
+    },
+    "Validation": {
+      "PageHeader": "Database Logging",
+      "ConfigurableSettingsCount": 5,
+      "SuccessMessage": "Configuration saved successfully",
+      "ErrorMessages": [
+        "All fields are required",
+        "Invalid input",
+        "Value out of range"
+      ]
+    },
+    "TestDataSets": [
+      {
+        "EnableLogging": true,
+        "LogLevel": "INFO",
+        "MaxLogSizeMB": 100,
+        "LogRetentionDays": 30,
+        "LogDestination": "LOCAL"
+      },
+      {
+        "EnableLogging": false,
+        "LogLevel": "ERROR",
+        "MaxLogSizeMB": 500,
+        "LogRetentionDays": 365,
+        "LogDestination": "REMOTE"
+      },
+      {
+        "EnableLogging": true,
+        "LogLevel": "DEBUG",
+        "MaxLogSizeMB": 10,
+        "LogRetentionDays": 7,
+        "LogDestination": "CLOUD"
+      },
+      {
+        "EnableLogging": false,
+        "LogLevel": "FATAL",
+        "MaxLogSizeMB": 1024,
+        "LogRetentionDays": 9999,
+        "LogDestination": "LOCAL"
+      },
+      {
+        "EnableLogging": true,
+        "LogLevel": "WARN",
+        "MaxLogSizeMB": 0,
+        "LogRetentionDays": 0,
+        "LogDestination": "REMOTE"
+      },
+      {
+        "EnableLogging": null,
+        "LogLevel": "INVALID",
+        "MaxLogSizeMB": -1,
+        "LogRetentionDays": -1,
+        "LogDestination": "UNKNOWN"
+      }
+    ]
+  }
+}
