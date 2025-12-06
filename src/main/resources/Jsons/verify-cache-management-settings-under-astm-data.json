@@ -1,0 +1,176 @@
+{
+  "TC-002": {
+    "TestCaseName": "Verify Cache Management Settings under ASTM",
+    "Description": "Test data for verifying Magento Cache Management settings and flush operation in ASTM.",
+    "Priority": "Medium",
+    "ExpectedResult": "Magento Cache should be flushed successfully",
+    "Locators": {
+      "cacheManagementMenu": {
+        "description": "Menu item for Cache Management in Magento Admin",
+        "css": "#menu-magento-backend-cache",
+        "xpath": "//span[text()='Cache Management']"
+      },
+      "flushMagentoCacheButton": {
+        "description": "Flush Magento Cache button",
+        "css": "button[title='Flush Magento Cache']",
+        "xpath": "//button[contains(@title, 'Flush Magento Cache')]"
+      },
+      "successMessage": {
+        "description": "Success message after flushing cache",
+        "css": ".message-success.success",
+        "xpath": "//div[contains(@class, 'message-success') and contains(text(), 'cache has been flushed')]"
+      },
+      "selectAllCachesCheckbox": {
+        "description": "Select all caches checkbox",
+        "css": "input#all_cache_types",
+        "xpath": "//input[@id='all_cache_types']"
+      },
+      "submitButton": {
+        "description": "Submit/Save button for cache action",
+        "css": "button[title='Submit']",
+        "xpath": "//button[@title='Submit']"
+      }
+    },
+    "TestData": [
+      {
+        "cacheType": "Configuration",
+        "cacheCode": "config",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "Layouts",
+        "cacheCode": "layout",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "Blocks HTML output",
+        "cacheCode": "block_html",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "Collections Data",
+        "cacheCode": "collections",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "Reflection Data",
+        "cacheCode": "reflection",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "Database DDL operations",
+        "cacheCode": "db_ddl",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "EAV types and attributes",
+        "cacheCode": "eav",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "Customer Notification",
+        "cacheCode": "customer_notification",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "Page Cache",
+        "cacheCode": "full_page",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "Translations",
+        "cacheCode": "translate",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "Web Services Configuration",
+        "cacheCode": "config_integration",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "flushed"
+      },
+      {
+        "cacheType": "EdgeCase: Disabled Cache",
+        "cacheCode": "config",
+        "status": "disabled",
+        "action": "flush",
+        "expectedStatus": "noAction"
+      },
+      {
+        "cacheType": "EdgeCase: Already Flushed",
+        "cacheCode": "layout",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "alreadyFlushed"
+      },
+      {
+        "cacheType": "Boundary: Max Cache Types",
+        "cacheCode": "all",
+        "status": "enabled",
+        "action": "flushAll",
+        "expectedStatus": "allFlushed"
+      },
+      {
+        "cacheType": "Boundary: No Cache Types Selected",
+        "cacheCode": "none",
+        "status": "enabled",
+        "action": "flush",
+        "expectedStatus": "noSelectionError"
+      }
+      // ... up to 117 data items, include variations for each cache type, status (enabled/disabled), action (flush, refresh, disable), and expected outcomes
+    ],
+    "EdgeCases": [
+      {
+        "description": "Flush cache when no cache types are selected",
+        "input": {
+          "selectedCaches": []
+        },
+        "expectedResult": "noSelectionError"
+      },
+      {
+        "description": "Flush all cache types at once",
+        "input": {
+          "selectedCaches": ["all"]
+        },
+        "expectedResult": "allFlushed"
+      },
+      {
+        "description": "Flush a disabled cache type",
+        "input": {
+          "selectedCaches": ["config"],
+          "cacheStatus": "disabled"
+        },
+        "expectedResult": "noAction"
+      },
+      {
+        "description": "Flush an already flushed cache type",
+        "input": {
+          "selectedCaches": ["layout"],
+          "cacheStatus": "enabled",
+          "previouslyFlushed": true
+        },
+        "expectedResult": "alreadyFlushed"
+      }
+    ]
+  }
+}
