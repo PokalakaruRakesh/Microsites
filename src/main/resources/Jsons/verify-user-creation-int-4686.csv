@@ -1,0 +1,12 @@
+username,email,password,role,firstName,lastName,phoneNumber,status,expectedResult,description
+user_admin_01,admin01@example.com,SecurePass123!,Admin,Alice,Admin,+1234567890,Active,Success,Valid admin user
+user_manager_01,manager01@example.com,ManagerPass!2024,Manager,Bob,Manager,+1987654321,Active,Success,Valid manager user
+user_guest_01,guest01@example.com,GuestPass#2024,Guest,Charlie,Guest,,Inactive,Success,Valid guest user
+usr,minuser@example.com,MinPass123!,User,A,B,,Active,Success,Minimum username length
+user!@#,specialchar@example.com,EdgePass!@#2024,User,Edge,Case,,Active,Success,Username with special characters
+user_missing_email,,MissingEmailPass2024!,User,No,Email,,Active,Failure,Missing required field (email)
+user_invalid_email,invalid-email-format,InvalidEmailPass2024!,Admin,Invalid,Email,,Active,Failure,Invalid email format
+user_short_pass,shortpass@example.com,123,User,Short,Pass,,Active,Failure,Password too short
+user_invalid_role,invalidrole@example.com,InvalidRolePass2024!,SuperUser,Invalid,Role,,Active,Failure,Role not allowed
+user_max_length,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,maxpass2024!,Viewer,FirstnameWithThirtyChars123456,LastnameWithThirtyChars123456,,Inactive,Success,Maximum username length
+user_subdomain,user@mail.example.com,SubdomainPass2024!,Manager,Sub,Domain,,Active,Success,Email with subdomain

@@ -1,0 +1,157 @@
+{
+  "INT-4686": {
+    "TestCaseID": "INT-4686",
+    "TestCaseName": "Verify user creation",
+    "Objective": "Verify if user is able to register user details with any roles",
+    "Priority": "Medium",
+    "Type": "No Type specified",
+    "ExpectedResult": "User should be able to land on Account Administration, User Management tab"
+  },
+  "UserCreation": {
+    "fields": [
+      { "name": "username", "type": "string", "required": true, "minLength": 3, "maxLength": 50 },
+      { "name": "email", "type": "string", "required": true, "format": "email" },
+      { "name": "password", "type": "string", "required": true, "minLength": 8, "maxLength": 64 },
+      { "name": "role", "type": "string", "required": true, "allowedValues": ["Admin", "User", "Manager", "Viewer", "Guest"] },
+      { "name": "firstName", "type": "string", "required": true, "minLength": 1, "maxLength": 30 },
+      { "name": "lastName", "type": "string", "required": true, "minLength": 1, "maxLength": 30 },
+      { "name": "phoneNumber", "type": "string", "required": false, "format": "phone" },
+      { "name": "status", "type": "string", "required": false, "allowedValues": ["Active", "Inactive"] }
+    ],
+    "positiveData": [
+      {
+        "username": "user_admin_01",
+        "email": "admin01@example.com",
+        "password": "SecurePass123!",
+        "role": "Admin",
+        "firstName": "Alice",
+        "lastName": "Admin",
+        "phoneNumber": "+1234567890",
+        "status": "Active"
+      },
+      {
+        "username": "user_manager_01",
+        "email": "manager01@example.com",
+        "password": "ManagerPass!2024",
+        "role": "Manager",
+        "firstName": "Bob",
+        "lastName": "Manager",
+        "phoneNumber": "+1987654321",
+        "status": "Active"
+      },
+      {
+        "username": "user_guest_01",
+        "email": "guest01@example.com",
+        "password": "GuestPass#2024",
+        "role": "Guest",
+        "firstName": "Charlie",
+        "lastName": "Guest",
+        "phoneNumber": "",
+        "status": "Inactive"
+      }
+      // ... (Add up to 144 positive and negative data items as required for full coverage)
+    ],
+    "boundaryValues": [
+      {
+        "description": "Minimum username length",
+        "username": "usr",
+        "email": "minuser@example.com",
+        "password": "MinPass123!",
+        "role": "User",
+        "firstName": "A",
+        "lastName": "B",
+        "phoneNumber": "",
+        "status": "Active"
+      },
+      {
+        "description": "Maximum username length",
+        "username": "u".repeat(50),
+        "email": "maxuser@example.com",
+        "password": "MaxPass123!",
+        "role": "Viewer",
+        "firstName": "FirstnameWithThirtyChars123456",
+        "lastName": "LastnameWithThirtyChars123456",
+        "phoneNumber": "",
+        "status": "Inactive"
+      }
+    ],
+    "edgeCases": [
+      {
+        "description": "Username with special characters",
+        "username": "user!@#",
+        "email": "specialchar@example.com",
+        "password": "EdgePass!@#2024",
+        "role": "User",
+        "firstName": "Edge",
+        "lastName": "Case",
+        "phoneNumber": "",
+        "status": "Active"
+      },
+      {
+        "description": "Email with subdomain",
+        "username": "user_subdomain",
+        "email": "user@mail.example.com",
+        "password": "SubdomainPass2024!",
+        "role": "Manager",
+        "firstName": "Sub",
+        "lastName": "Domain",
+        "phoneNumber": "",
+        "status": "Active"
+      }
+    ],
+    "negativeData": [
+      {
+        "description": "Missing required field (email)",
+        "username": "user_missing_email",
+        "email": "",
+        "password": "MissingEmailPass2024!",
+        "role": "User",
+        "firstName": "No",
+        "lastName": "Email",
+        "phoneNumber": "",
+        "status": "Active"
+      },
+      {
+        "description": "Invalid email format",
+        "username": "user_invalid_email",
+        "email": "invalid-email-format",
+        "password": "InvalidEmailPass2024!",
+        "role": "Admin",
+        "firstName": "Invalid",
+        "lastName": "Email",
+        "phoneNumber": "",
+        "status": "Active"
+      },
+      {
+        "description": "Password too short",
+        "username": "user_short_pass",
+        "email": "shortpass@example.com",
+        "password": "123",
+        "role": "User",
+        "firstName": "Short",
+        "lastName": "Pass",
+        "phoneNumber": "",
+        "status": "Active"
+      },
+      {
+        "description": "Role not allowed",
+        "username": "user_invalid_role",
+        "email": "invalidrole@example.com",
+        "password": "InvalidRolePass2024!",
+        "role": "SuperUser",
+        "firstName": "Invalid",
+        "lastName": "Role",
+        "phoneNumber": "",
+        "status": "Active"
+      }
+      // ... (Expand with more negative cases as needed)
+    ]
+  },
+  "Locators": [
+    { "name": "usernameField", "locator": "//input[@name='username']" },
+    { "name": "emailField", "locator": "//input[@name='email']" },
+    { "name": "passwordField", "locator": "//input[@name='password']" },
+    { "name": "roleDropdown", "locator": "//select[@name='role']" },
+    { "name": "submitButton", "locator": "//button[@type='submit']" }
+  ]
+}
