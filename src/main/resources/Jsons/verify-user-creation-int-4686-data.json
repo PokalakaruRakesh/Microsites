@@ -1,0 +1,112 @@
+{
+  "INT-4686": {
+    "TestCaseID": "INT-4686",
+    "TestCaseName": "Verify user creation",
+    "Objective": "Verify if user is able to register user details with any roles",
+    "Priority": "Medium",
+    "Type": "Functional",
+    "ExpectedResult": "Email created should be reflected under Manage users"
+  },
+  "UserCreation": {
+    "Fields": [
+      { "name": "firstName", "type": "string", "required": true, "boundaryValues": ["A", "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"] },
+      { "name": "lastName", "type": "string", "required": true, "boundaryValues": ["B", "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"] },
+      { "name": "email", "type": "email", "required": true, "boundaryValues": ["a@b.co", "verylongemailaddressusernamethatexceedslimits@domain.com"] },
+      { "name": "password", "type": "string", "required": true, "boundaryValues": ["P@ssw0rd", "short", "averyveryveryveryveryveryveryverylongpasswordthatexceedslimits"] },
+      { "name": "role", "type": "enum", "required": true, "values": ["Admin", "User", "Manager", "Viewer", "Guest"], "boundaryValues": ["Admin", "Guest"] },
+      { "name": "phoneNumber", "type": "string", "required": false, "boundaryValues": ["1234567890", "", "+1-800-555-0123"] }
+    ],
+    "ValidData": [
+      {
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe+test1@example.com",
+        "password": "StrongP@ssw0rd1",
+        "role": "Admin",
+        "phoneNumber": "1234567890"
+      },
+      {
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "email": "jane.smith+test2@example.com",
+        "password": "AnotherP@ss2",
+        "role": "User",
+        "phoneNumber": ""
+      },
+      {
+        "firstName": "Max",
+        "lastName": "Power",
+        "email": "max.power+test3@example.com",
+        "password": "MaxP@ssw0rd3",
+        "role": "Manager",
+        "phoneNumber": "+1-800-555-0123"
+      }
+    ],
+    "EdgeCases": [
+      {
+        "firstName": "A",
+        "lastName": "B",
+        "email": "a@b.co",
+        "password": "short",
+        "role": "Admin",
+        "phoneNumber": ""
+      },
+      {
+        "firstName": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "lastName": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "email": "verylongemailaddressusernamethatexceedslimits@domain.com",
+        "password": "averyveryveryveryveryveryveryverylongpasswordthatexceedslimits",
+        "role": "Guest",
+        "phoneNumber": "12345678901234567890"
+      }
+    ],
+    "NegativeScenarios": [
+      {
+        "description": "Missing required email",
+        "firstName": "NoEmail",
+        "lastName": "User",
+        "email": "",
+        "password": "ValidPassw0rd!",
+        "role": "User",
+        "phoneNumber": ""
+      },
+      {
+        "description": "Invalid email format",
+        "firstName": "BadEmail",
+        "lastName": "User",
+        "email": "notanemail",
+        "password": "ValidPassw0rd!",
+        "role": "User",
+        "phoneNumber": ""
+      },
+      {
+        "description": "Password too short",
+        "firstName": "Short",
+        "lastName": "Password",
+        "email": "short.password@example.com",
+        "password": "123",
+        "role": "User",
+        "phoneNumber": ""
+      },
+      {
+        "description": "Role not in allowed list",
+        "firstName": "Unknown",
+        "lastName": "Role",
+        "email": "unknown.role@example.com",
+        "password": "ValidPassw0rd!",
+        "role": "SuperUser",
+        "phoneNumber": ""
+      }
+    ]
+  },
+  "Locators": [
+    { "name": "firstNameInput", "locator": "#firstName" },
+    { "name": "lastNameInput", "locator": "#lastName" },
+    { "name": "emailInput", "locator": "#email" },
+    { "name": "passwordInput", "locator": "#password" },
+    { "name": "roleDropdown", "locator": "#role" },
+    { "name": "phoneNumberInput", "locator": "#phoneNumber" },
+    { "name": "submitButton", "locator": "#submitUser" },
+    { "name": "manageUsersTable", "locator": "#manageUsersTable" }
+  ]
+}

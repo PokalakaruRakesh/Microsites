@@ -1,0 +1,10 @@
+firstName,lastName,email,password,role,phoneNumber,expectedResult,scenarioType,description
+John,Doe,john.doe+test1@example.com,StrongP@ssw0rd1,Admin,1234567890,Success,Positive,Valid admin user
+Jane,Smith,jane.smith+test2@example.com,AnotherP@ss2,User,,Success,Positive,Valid user with empty phone
+Max,Power,max.power+test3@example.com,MaxP@ssw0rd3,Manager,+1-800-555-0123,Success,Positive,Valid manager with phone
+A,B,a@b.co,short,Admin,,Fail,Edge,Min boundary values
+ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ,ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ,verylongemailaddressusernamethatexceedslimits@domain.com,averyveryveryveryveryveryveryverylongpasswordthatexceedslimits,Guest,12345678901234567890,Fail,Edge,Max boundary values
+NoEmail,User,,ValidPassw0rd!,User,,Fail,Negative,Missing required email
+BadEmail,User,notanemail,ValidPassw0rd!,User,,Fail,Negative,Invalid email format
+Short,Password,short.password@example.com,123,User,,Fail,Negative,Password too short
+Unknown,Role,unknown.role@example.com,ValidPassw0rd!,SuperUser,,Fail,Negative,Role not allowed
