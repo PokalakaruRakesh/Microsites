@@ -1,0 +1,120 @@
+// Test Data for INT-123: Validate that the user can successfully log in to the PIM UI, access the Manage Publishers section, and add a new publisher by providing all required information and saving the record.
+{
+  "INT-123": {
+    "Login": {
+      "validCredentials": {
+        "username": "test.user@company.com",
+        "password": "SecurePass123!"
+      },
+      "invalidCredentials": {
+        "username": "invalid.user@company.com",
+        "password": "WrongPass!"
+      },
+      "emptyUsername": {
+        "username": "",
+        "password": "SecurePass123!"
+      },
+      "emptyPassword": {
+        "username": "test.user@company.com",
+        "password": ""
+      },
+      "boundaryUsername": {
+        "username": "a@b.c",
+        "password": "SecurePass123!"
+      },
+      "boundaryPassword": {
+        "username": "test.user@company.com",
+        "password": "A1!"
+      }
+    },
+    "ManagePublishers": {
+      "sectionTitle": "Manage Publishers",
+      "addPublisherButtonText": "Add Publisher",
+      "saveButtonText": "Save",
+      "cancelButtonText": "Cancel"
+    },
+    "NewPublisher": {
+      "validPublisher": {
+        "name": "Test Publisher Inc.",
+        "code": "TPUB001",
+        "contactEmail": "contact@testpublisher.com",
+        "contactPhone": "+1-555-123-4567",
+        "address": "123 Test Lane, Test City, TS 12345, USA"
+      },
+      "edgeCases": [
+        {
+          "name": "A", // minimum length
+          "code": "C", // minimum length
+          "contactEmail": "a@b.co",
+          "contactPhone": "1",
+          "address": "1"
+        },
+        {
+          "name": "", // empty name
+          "code": "TPUB002",
+          "contactEmail": "contact2@testpublisher.com",
+          "contactPhone": "+1-555-000-0000",
+          "address": "456 Test Lane, Test City, TS 12345, USA"
+        },
+        {
+          "name": "Test Publisher Long Name Exceeding Maximum Length Allowed By The System For Edge Case Testing Purposes",
+          "code": "TPUBLONGCODEEXCEEDINGLIMITS",
+          "contactEmail": "verylongemailaddressfortestingpurposes@testpublisher.com",
+          "contactPhone": "+1-555-999-9999",
+          "address": "789 Test Lane, Test City, TS 12345, USA"
+        },
+        {
+          "name": "Test Publisher Special !@#$%^&*()_+",
+          "code": "TPUB!@#",
+          "contactEmail": "contact+special@testpublisher.com",
+          "contactPhone": "+1-555-321-4321",
+          "address": "Special Address #$%@!"
+        },
+        {
+          "name": "Test Publisher",
+          "code": "", // empty code
+          "contactEmail": "contact@testpublisher.com",
+          "contactPhone": "+1-555-123-4567",
+          "address": "123 Test Lane, Test City, TS 12345, USA"
+        },
+        {
+          "name": "Test Publisher",
+          "code": "TPUB003",
+          "contactEmail": "", // empty email
+          "contactPhone": "+1-555-123-4567",
+          "address": "123 Test Lane, Test City, TS 12345, USA"
+        },
+        {
+          "name": "Test Publisher",
+          "code": "TPUB004",
+          "contactEmail": "invalid-email-format",
+          "contactPhone": "not-a-phone",
+          "address": "123 Test Lane, Test City, TS 12345, USA"
+        }
+      ]
+    },
+    "Locators": {
+      "usernameField": "#username",
+      "passwordField": "#password",
+      "loginButton": "#loginBtn",
+      "managePublishersMenu": "#menu-manage-publishers",
+      "addPublisherButton": "#add-publisher-btn",
+      "publisherNameField": "#publisher-name",
+      "publisherCodeField": "#publisher-code",
+      "publisherEmailField": "#publisher-email",
+      "publisherPhoneField": "#publisher-phone",
+      "publisherAddressField": "#publisher-address",
+      "saveButton": "#save-publisher-btn"
+    },
+    "ExpectedResults": {
+      "successMessage": "Publisher saved successfully.",
+      "saveButtonEnabled": true,
+      "errorMessages": {
+        "emptyName": "Publisher name is required.",
+        "emptyCode": "Publisher code is required.",
+        "invalidEmail": "Enter a valid email address.",
+        "invalidPhone": "Enter a valid phone number."
+      }
+    }
+  }
+}

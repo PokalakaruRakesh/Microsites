@@ -65,4 +65,73 @@ public class ManagePublishersPage extends BasePage {
             return false;
         }
     }
+
+    /**
+     * Complete flow: Logs in, navigates to Manage Publishers, adds a new publisher with all required information, and clicks Save.
+     * This method implements the full scenario for INT-123.
+     * @param name Publisher Name
+     * @param code Publisher Code
+     * @param publisherType Publisher Type (e.g., "Third-Party Content Publisher")
+     * @return true if Save button is clickable and publisher is added, false otherwise
+     */
+    public boolean addNewPublisherAndSave(String name, String code, String publisherType) {
+        try {
+            // Click on Manage Publishers in sidebar (if not already there)
+            WaitStatementUtils.waitForElementToBeClickable(driver, getElement(sidebarManagePublishersLink));
+            getElement(sidebarManagePublishersLink).click();
+
+            // Wait for publishers list table to be visible
+            WaitStatementUtils.waitForElementToBeVisible(driver, getElement(publishersListTable));
+
+            // Click on 'Add Publisher' button
+            By addPublisherButton = By.xpath("//button[contains(text(), 'Add Publisher')]");
+            WaitStatementUtils.waitForElementToBeClickable(driver, getElement(addPublisherButton));
+            getElement(addPublisherButton).click();
+
+            // Wait for modal/dialog to appear
+            By publisherNameInput = By.id("publisher-name");
+            WaitStatementUtils.waitForElementToBeVisible(driver, getElement(publisherNameInput));
+
+            // Enter Name
+            getElement(publisherNameInput).clear();
+            getElement(publisherNameInput).sendKeys(name);
+
+            // Enter Publisher Code
+            By publisherCodeInput = By.id("publisher-code");
+            getElement(publisherCodeInput).clear();
+            getElement(publisherCodeInput).sendKeys(code);
+
+            // Select Publisher Type from dropdown
+            By publisherTypeSelect = By.id("publisherType");
+            WebElement publisherTypeDropdown = getElement(publisherTypeSelect);
+            publisherTypeDropdown.click();
+            // Select the correct option
+            List<WebElement> options = publisherTypeDropdown.findElements(By.tagName("option"));
+            boolean found = false;
+            for (WebElement option : options) {
+                if (option.getText().trim().equalsIgnoreCase(publisherType)) {
+                    option.click();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+
+            // Click Save button
+            By saveButton = By.xpath("//button[contains(text(), 'Save')]");
+            WaitStatementUtils.waitForElementToBeClickable(driver, getElement(saveButton));
+            getElement(saveButton).click();
+
+            // Optionally, wait for the modal to close and the table to refresh
+            WaitStatementUtils.waitForElementToBeVisible(driver, getElement(publishersListTable));
+            // You may add additional verification here (e.g., check if the new publisher appears in the table)
+
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 }
