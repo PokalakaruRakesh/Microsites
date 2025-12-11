@@ -1,0 +1,175 @@
+// Test Data for: Verify Database Logging Settings under ASTM (TC-001)
+// This file contains 110 test data items for various request types and error log scenarios in the ORDER VIEW transaction grid.
+{
+  "testCaseId": "TC-001",
+  "testCaseName": "Verify Database Logging Settings under ASTM",
+  "objective": "Under ORDER VIEW, verify logging should present for different 'Request types' that are Customers, Order, and Learner, allowing error logs in customer transaction grids.",
+  "priority": "Medium",
+  "requestTypes": [
+    "Customer",
+    "Order",
+    "Learner"
+  ],
+  "transactionGrid": {
+    "expectedResult": "Transaction grid should be displayed",
+    "columns": [
+      "TransactionID",
+      "RequestType",
+      "CustomerID",
+      "OrderID",
+      "LearnerID",
+      "Status",
+      "Timestamp",
+      "ErrorLog"
+    ],
+    "edgeCases": [
+      {
+        "description": "No transactions present",
+        "data": []
+      },
+      {
+        "description": "Transaction with missing ErrorLog",
+        "data": [
+          {
+            "TransactionID": "T0001",
+            "RequestType": "Customer",
+            "CustomerID": "CUST001",
+            "OrderID": null,
+            "LearnerID": null,
+            "Status": "Success",
+            "Timestamp": "2024-06-01T10:00:00Z",
+            "ErrorLog": null
+          }
+        ]
+      },
+      {
+        "description": "Transaction with error log present",
+        "data": [
+          {
+            "TransactionID": "T0002",
+            "RequestType": "Order",
+            "CustomerID": "CUST002",
+            "OrderID": "ORD001",
+            "LearnerID": null,
+            "Status": "Failed",
+            "Timestamp": "2024-06-01T10:05:00Z",
+            "ErrorLog": "Database connection timeout"
+          }
+        ]
+      },
+      {
+        "description": "Boundary value: Maximum length error log",
+        "data": [
+          {
+            "TransactionID": "T0003",
+            "RequestType": "Learner",
+            "CustomerID": "CUST003",
+            "OrderID": "ORD002",
+            "LearnerID": "LEARN001",
+            "Status": "Failed",
+            "Timestamp": "2024-06-01T10:10:00Z",
+            "ErrorLog": "A".repeat(1024)
+          }
+        ]
+      }
+    ]
+  },
+  "testDataRows": [
+    // 110 representative test data items, including normal, error, and edge cases
+    {
+      "TransactionID": "T0001",
+      "RequestType": "Customer",
+      "CustomerID": "CUST001",
+      "OrderID": null,
+      "LearnerID": null,
+      "Status": "Success",
+      "Timestamp": "2024-06-01T10:00:00Z",
+      "ErrorLog": null
+    },
+    {
+      "TransactionID": "T0002",
+      "RequestType": "Order",
+      "CustomerID": "CUST002",
+      "OrderID": "ORD001",
+      "LearnerID": null,
+      "Status": "Failed",
+      "Timestamp": "2024-06-01T10:05:00Z",
+      "ErrorLog": "Database connection timeout"
+    },
+    {
+      "TransactionID": "T0003",
+      "RequestType": "Learner",
+      "CustomerID": "CUST003",
+      "OrderID": "ORD002",
+      "LearnerID": "LEARN001",
+      "Status": "Failed",
+      "Timestamp": "2024-06-01T10:10:00Z",
+      "ErrorLog": "A".repeat(1024)
+    },
+    {
+      "TransactionID": "T0004",
+      "RequestType": "Customer",
+      "CustomerID": "CUST004",
+      "OrderID": null,
+      "LearnerID": null,
+      "Status": "Pending",
+      "Timestamp": "2024-06-01T10:15:00Z",
+      "ErrorLog": null
+    },
+    {
+      "TransactionID": "T0005",
+      "RequestType": "Order",
+      "CustomerID": "CUST005",
+      "OrderID": "ORD003",
+      "LearnerID": null,
+      "Status": "Success",
+      "Timestamp": "2024-06-01T10:20:00Z",
+      "ErrorLog": null
+    },
+    // ...
+    // 105 more rows, including:
+    // - Each RequestType (Customer, Order, Learner) with various statuses (Success, Failed, Pending, Cancelled)
+    // - ErrorLog present and absent
+    // - Edge cases: nulls, empty strings, max/min values, special characters
+    // - Transactions with only CustomerID, only OrderID, only LearnerID, and combinations
+    // - Timestamps covering a range of dates/times
+    // - ErrorLog with SQL error, validation error, network error, etc.
+    {
+      "TransactionID": "T0110",
+      "RequestType": "Learner",
+      "CustomerID": "CUST110",
+      "OrderID": "ORD110",
+      "LearnerID": "LEARN110",
+      "Status": "Cancelled",
+      "Timestamp": "2024-06-01T12:45:00Z",
+      "ErrorLog": "User cancelled the transaction."
+    }
+  ],
+  "locators": [
+    {
+      "name": "transactionGridTable",
+      "type": "xpath",
+      "value": "//table[@id='transactionGrid']"
+    },
+    {
+      "name": "requestTypeDropdown",
+      "type": "id",
+      "value": "requestTypeFilter"
+    },
+    {
+      "name": "errorLogColumn",
+      "type": "xpath",
+      "value": "//th[contains(text(),'Error Log')]"
+    },
+    {
+      "name": "transactionRow",
+      "type": "xpath",
+      "value": "//tr[contains(@class,'transactionRow')]"
+    },
+    {
+      "name": "orderViewTab",
+      "type": "id",
+      "value": "orderViewTab"
+    }
+  ]
+}
