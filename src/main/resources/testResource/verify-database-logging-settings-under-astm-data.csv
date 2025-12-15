@@ -1,0 +1,38 @@
+# Test Data for: Verify Database Logging Settings under ASTM (TC-001)
+# Columns: requestType,customerId,orderId,learnerId,expectedLog
+requestType,customerId,orderId,learnerId,expectedLog
+CREATE_CUSTOMER,CUST001,,,customer
+UPDATE_CUSTOMER,CUST002,,,customer
+DELETE_CUSTOMER,CUST003,,,customer
+CREATE_ORDER,CUST004,ORD001,,order
+UPDATE_ORDER,CUST005,ORD002,,order
+DELETE_ORDER,CUST006,ORD003,,order
+CREATE_LEARNER,,,LEARN001,learner
+UPDATE_LEARNER,,,LEARN002,learner
+DELETE_LEARNER,,,LEARN003,learner
+ERROR_EVENT,,,,error
+CREATE_CUSTOMER,"",,,customer
+UPDATE_ORDER,,"",,order
+CREATE_LEARNER,,,"",learner
+ERROR_EVENT,,,,error
+DEBUG_EVENT,,,,error
+INFO_EVENT,,,,error
+CREATE_CUSTOMER,CUST9999999999,,,customer
+CREATE_ORDER,CUST007,ORD9999999999,,order
+CREATE_LEARNER,,,LEARN9999999999,learner
+ERROR_EVENT,,,,error
+CREATE_CUSTOMER,,,,customer
+CREATE_ORDER,,,,order
+CREATE_LEARNER,,,,learner
+ERROR_EVENT,,,,error
+UPDATE_CUSTOMER,CUST-!@#,,,customer
+UPDATE_ORDER,CUST-!@#,ORD-!@#,,order
+UPDATE_LEARNER,,,LEARN-!@#,learner
+DELETE_CUSTOMER,CUST000,,,customer
+DELETE_ORDER,,ORD000,,order
+DELETE_LEARNER,,,LEARN000,learner
+CREATE_CUSTOMER,CUST010,,,customer
+CREATE_ORDER,CUST011,ORD011,,order
+CREATE_LEARNER,,,LEARN011,learner
+ERROR_EVENT,,,,error
+# ...repeat and expand up to 110 rows with variations for full coverage
