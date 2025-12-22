@@ -1,90 +1,127 @@
 {
   "testCaseId": "TC-001",
   "testCaseName": "Verify Database Logging Settings under ASTM",
-  "description": "Verify logging is present for different Request types (Customers, Order, Learner) and error logs in customer transaction grids. Validate MAE Status, EBS Order Status, EBS Business Events-failed records are displayed and store the count.",
+  "description": "Verify logging presence for different Request types and allowing error logs in customer transaction grids.",
   "priority": "Medium",
+  "type": "Functional",
+  "testDataCount": 110,
   "requestTypes": [
     {
-      "type": "Customer",
+      "type": "VALID",
       "valid": [
-        { "customerId": "CUST001", "expectedLog": true, "expectedError": false },
-        { "customerId": "CUST002", "expectedLog": true, "expectedError": true },
-        { "customerId": "", "expectedLog": false, "expectedError": true },
-        { "customerId": "CUST_MAXLEN_255", "expectedLog": true, "expectedError": false }
+        "CREATE_ORDER",
+        "UPDATE_ORDER",
+        "DELETE_ORDER",
+        "FETCH_STATUS",
+        "CUSTOMER_TRANSACTION"
       ],
       "edgeCases": [
-        { "customerId": null, "expectedLog": false, "expectedError": true },
-        { "customerId": "CUST_SPECIAL_!@#", "expectedLog": true, "expectedError": false }
-      ]
-    },
-    {
-      "type": "Order",
-      "valid": [
-        { "orderId": "ORD001", "expectedLog": true, "expectedError": false },
-        { "orderId": "ORD002", "expectedLog": true, "expectedError": true },
-        { "orderId": "", "expectedLog": false, "expectedError": true },
-        { "orderId": "ORD_MAXLEN_255", "expectedLog": true, "expectedError": false }
-      ],
-      "edgeCases": [
-        { "orderId": null, "expectedLog": false, "expectedError": true },
-        { "orderId": "ORD_SPECIAL_!@#", "expectedLog": true, "expectedError": false }
-      ]
-    },
-    {
-      "type": "Learner",
-      "valid": [
-        { "learnerId": "LEARN001", "expectedLog": true, "expectedError": false },
-        { "learnerId": "LEARN002", "expectedLog": true, "expectedError": true },
-        { "learnerId": "", "expectedLog": false, "expectedError": true },
-        { "learnerId": "LEARN_MAXLEN_255", "expectedLog": true, "expectedError": false }
-      ],
-      "edgeCases": [
-        { "learnerId": null, "expectedLog": false, "expectedError": true },
-        { "learnerId": "LEARN_SPECIAL_!@#", "expectedLog": true, "expectedError": false }
+        "empty",
+        "null",
+        "special_characters",
+        "max_length"
       ]
     }
   ],
   "loggingGrids": [
     {
-      "grid": "CustomerTransactionGrid",
+      "grid": "maeStatus",
       "errorLogScenarios": [
-        { "transactionId": "TXN001", "errorCode": "ERR001", "errorMessage": "Invalid customer ID" },
-        { "transactionId": "TXN002", "errorCode": "ERR002", "errorMessage": "Order not found" },
-        { "transactionId": "TXN003", "errorCode": "ERR003", "errorMessage": "Learner not registered" },
-        { "transactionId": "TXN004", "errorCode": "ERR004", "errorMessage": "Database timeout" },
-        { "transactionId": "TXN005", "errorCode": "ERR005", "errorMessage": "Special char in input" }
+        "No error",
+        "Database connection timeout",
+        "Invalid request type"
+      ]
+    },
+    {
+      "grid": "ebsOrderStatus",
+      "errorLogScenarios": [
+        "Order not found",
+        "Order status update failed"
+      ]
+    },
+    {
+      "grid": "ebsBusinessEventsFailed",
+      "errorLogScenarios": [
+        "Business event processing failed",
+        "Event queue overflow"
+      ]
+    },
+    {
+      "grid": "customerTransaction",
+      "errorLogScenarios": [
+        "Transaction log missing",
+        "Error log present"
       ]
     }
   ],
   "expectedResults": {
     "maeStatus": {
       "displayed": true,
-      "count": 15,
-      "boundaryValues": [0, 1, 100, 99999]
+      "count": 10,
+      "boundaryValues": [0, 1, 10, 100, 1000]
     },
     "ebsOrderStatus": {
       "displayed": true,
-      "count": 10,
-      "boundaryValues": [0, 1, 50, 99999]
+      "count": 5,
+      "boundaryValues": [0, 1, 5, 50, 500]
     },
     "ebsBusinessEventsFailed": {
       "displayed": true,
-      "count": 5,
-      "boundaryValues": [0, 1, 20, 99999]
+      "count": 2,
+      "boundaryValues": [0, 1, 2, 20, 200]
     }
   },
   "locators": [
-    { "name": "maeStatusGrid", "type": "xpath", "value": "//div[@id='maeStatusGrid']" },
-    { "name": "ebsOrderStatusGrid", "type": "xpath", "value": "//div[@id='ebsOrderStatusGrid']" },
-    { "name": "ebsBusinessEventsFailedGrid", "type": "xpath", "value": "//div[@id='ebsBusinessEventsFailedGrid']" },
-    { "name": "customerTransactionGrid", "type": "xpath", "value": "//div[@id='customerTransactionGrid']" },
-    { "name": "errorLogRow", "type": "css", "value": ".error-log-row" }
+    {
+      "name": "maeStatusGrid",
+      "type": "xpath",
+      "value": "//div[@id='maeStatusGrid']"
+    },
+    {
+      "name": "ebsOrderStatusGrid",
+      "type": "xpath",
+      "value": "//div[@id='ebsOrderStatusGrid']"
+    },
+    {
+      "name": "ebsBusinessEventsFailedGrid",
+      "type": "xpath",
+      "value": "//div[@id='ebsBusinessEventsFailedGrid']"
+    },
+    {
+      "name": "customerTransactionGrid",
+      "type": "xpath",
+      "value": "//div[@id='customerTransactionGrid']"
+    },
+    {
+      "name": "errorLogRow",
+      "type": "css",
+      "value": ".error-log-row"
+    }
   ],
-  "testDataCount": 110,
   "edgeCases": [
-    { "description": "Empty request type", "requestType": "", "expectedLog": false, "expectedError": true },
-    { "description": "Null request type", "requestType": null, "expectedLog": false, "expectedError": true },
-    { "description": "Special characters in request type", "requestType": "!@#", "expectedLog": false, "expectedError": true },
-    { "description": "Max length string for request type", "requestType": "A...A (255 chars)", "expectedLog": true, "expectedError": false }
+    {
+      "description": "Request type is empty string",
+      "requestType": "",
+      "expectedLog": false,
+      "expectedError": true
+    },
+    {
+      "description": "Request type is null",
+      "requestType": null,
+      "expectedLog": false,
+      "expectedError": true
+    },
+    {
+      "description": "Request type contains special characters",
+      "requestType": "!@#$%^&*()",
+      "expectedLog": false,
+      "expectedError": true
+    },
+    {
+      "description": "Request type exceeds max length",
+      "requestType": "REQUEST_TYPE_EXCEEDING_MAX_LENGTH_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+      "expectedLog": false,
+      "expectedError": true
+    }
   ]
 }

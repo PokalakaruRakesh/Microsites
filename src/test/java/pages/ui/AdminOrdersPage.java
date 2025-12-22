@@ -204,4 +204,81 @@ public class AdminOrdersPage extends BasePage {
     public int getEbsBusinessEventsFailedRecordCount() {
         return getStatusCount(ebsBusinessEventsFailedRecords);
     }
+
+    /**
+     * Performs the complete flow for verifying database logging settings under ASTM as per TC-001.
+     * Launches the Orders Admin page, clicks on 'Create New Re-Submit Batch',
+     * enters the date range, finds orders, gets relevant status counts, and handles resubmission if required.
+     *
+     * @param fromDate String - date in format required by UI (e.g., "2024-06-01")
+     * @param toDate String - date in format required by UI (e.g., "2024-06-03")
+     * @return LoggingStatusCounts - POJO holding counts for MAE, EBS Order Status, and EBS Business Events-failed
+     */
+    public LoggingStatusCounts completeVerifyDatabaseLoggingSettingsFlow(String fromDate, String toDate) {
+        try {
+            // Click on "Create New Re-Submit Batch"
+            clickOnMethod(createNewResubmitBatchButton);
+
+            // Enter date range
+            waitForElementPresent(fromDateField);
+            WebElement fromInput = getElement(fromDateField);
+            fromInput.clear();
+            fromInput.sendKeys(fromDate);
+
+            waitForElementPresent(toDateField);
+            WebElement toInput = getElement(toDateField);
+            toInput.clear();
+            toInput.sendKeys(toDate);
+
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+
+            // Click on "Find Orders"
+            clickOnMethod(findOrdersButton);
+
+            // Wait for results to load
+            Thread.sleep(2000);
+
+            // Get counts for MAE Status, EBS Order Status, EBS Business Events-failed
+            int maeCount = getStatusCount(maeStatusRecords);
+            int ebsOrderStatusCount = getStatusCount(ebsOrderStatusRecords);
+            int ebsBusinessEventsFailedCount = getStatusCount(ebsBusinessEventsFailedRecords);
+
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+
+            // If MAE status record count is not zero, click on Re-submit Mae orders button
+            if (maeCount > 0) {
+                // Placeholder locator for 'Re-submit Mae orders' button
+                By reSubmitMaeOrdersButton = By.xpath("<PLACEHOLDER_ReSubmitMaeOrdersButton>"); // TODO: Replace with actual locator
+                clickOnMethod(reSubmitMaeOrdersButton);
+
+                // Verify the pop-up text
+                By reSubmitPopupText = By.xpath("<PLACEHOLDER_ReSubmitPopupText>"); // TODO: Replace with actual locator
+                waitForElementPresent(reSubmitPopupText);
+                String popupText = getElement(reSubmitPopupText).getText();
+                if (!popupText.contains("You have selected to Re-Submit 1 failed orders that are currently in MAE Status. These orders will be added to the queue with \"MAE Status\" Recovery Point.")) {
+                    log.error("Resubmit MAE orders popup text did not match expected message.");
+                    throw new AssertionError("Popup text mismatch");
+                }
+
+                // Click on "continue" button
+                By continueButton = By.xpath("<PLACEHOLDER_ContinueButton>"); // TODO: Replace with actual locator
+                clickOnMethod(continueButton);
+
+                // Click on "ok" on alert pop-up
+                driver.switchTo().alert().accept();
+            }
+
+            // Click on "up-arrow" for batch id column
+            By batchIdUpArrow = By.xpath("<PLACEHOLDER_BatchIdUpArrow>"); // TODO: Replace with actual locator
+            clickOnMethod(batchIdUpArrow);
+
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+
+            return new LoggingStatusCounts(maeCount, ebsOrderStatusCount, ebsBusinessEventsFailedCount);
+        } catch (Exception e) {
+            log.error("Error in completeVerifyDatabaseLoggingSettingsFlow", e);
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+            throw new RuntimeException("Failed to complete verify database logging settings flow", e);
+        }
+    }
 }
