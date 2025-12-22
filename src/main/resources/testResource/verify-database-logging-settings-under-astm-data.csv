@@ -1,0 +1,20 @@
+# Test data for Verify Database Logging Settings under ASTM
+# Columns: requestType,entityId,expectedLog,expectedError,grid,errorCode,errorMessage
+Customer,CUST001,true,false,CustomerTransactionGrid,,
+Customer,CUST002,true,true,CustomerTransactionGrid,ERR001,Invalid customer ID
+Customer,,false,true,CustomerTransactionGrid,ERR002,Order not found
+Customer,CUST_MAXLEN_255,true,false,CustomerTransactionGrid,,
+Customer,CUST_SPECIAL_!@#,true,false,CustomerTransactionGrid,ERR005,Special char in input
+Order,ORD001,true,false,,,
+Order,ORD002,true,true,,ERR002,Order not found
+Order,,false,true,,ERR003,Learner not registered
+Order,ORD_MAXLEN_255,true,false,,,
+Order,ORD_SPECIAL_!@#,true,false,,ERR005,Special char in input
+Learner,LEARN001,true,false,,,
+Learner,LEARN002,true,true,,ERR003,Learner not registered
+Learner,,false,true,,ERR004,Database timeout
+Learner,LEARN_MAXLEN_255,true,false,,,
+Learner,LEARN_SPECIAL_!@#,true,false,,ERR005,Special char in input
+,,false,true,,,
+!@#,,false,true,,,
+A...A (255 chars),,true,false,,,
