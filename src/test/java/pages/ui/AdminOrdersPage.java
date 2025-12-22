@@ -97,4 +97,111 @@ public class AdminOrdersPage extends BasePage {
             this.ebsBusinessEventsFailedCount = ebsBusinessEventsFailedCount;
         }
     }
+
+    // --- NEW FUNCTIONALITY ADDED BELOW (per new requirements) ---
+
+    /**
+     * Clicks the "Create New Order" button on the Orders Admin Page.
+     */
+    public void clickCreateNewOrderButton() {
+        try {
+            clickOnMethod(createNewOrderButton);
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+        } catch (Exception e) {
+            log.error("Error clicking Create New Order button", e);
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+            throw new RuntimeException("Failed to click Create New Order button", e);
+        }
+    }
+
+    /**
+     * Clicks the "Go To Archive" button on the Orders Admin Page.
+     */
+    public void clickGoToArchiveButton() {
+        try {
+            clickOnMethod(goToArchiveButton);
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+        } catch (Exception e) {
+            log.error("Error clicking Go To Archive button", e);
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+            throw new RuntimeException("Failed to click Go To Archive button", e);
+        }
+    }
+
+    /**
+     * Clicks the "View Re-Submit Batch" button on the Orders Admin Page.
+     */
+    public void clickViewResubmitBatchButton() {
+        try {
+            clickOnMethod(viewResubmitBatchButton);
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+        } catch (Exception e) {
+            log.error("Error clicking View Re-Submit Batch button", e);
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+            throw new RuntimeException("Failed to click View Re-Submit Batch button", e);
+        }
+    }
+
+    /**
+     * Enters the given from and to dates in the Orders Admin Page date fields.
+     * @param fromDate String - date in format required by UI (e.g., "2024-06-01")
+     * @param toDate String - date in format required by UI (e.g., "2024-06-03")
+     */
+    public void enterOrderDateRange(String fromDate, String toDate) {
+        try {
+            waitForElementPresent(fromDateField);
+            WebElement fromInput = getElement(fromDateField);
+            fromInput.clear();
+            fromInput.sendKeys(fromDate);
+
+            waitForElementPresent(toDateField);
+            WebElement toInput = getElement(toDateField);
+            toInput.clear();
+            toInput.sendKeys(toDate);
+
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+        } catch (Exception e) {
+            log.error("Error entering order date range", e);
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+            throw new RuntimeException("Failed to enter order date range", e);
+        }
+    }
+
+    /**
+     * Clicks the "Find Orders" button on the Orders Admin Page.
+     */
+    public void clickFindOrdersButton() {
+        try {
+            clickOnMethod(findOrdersButton);
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+        } catch (Exception e) {
+            log.error("Error clicking Find Orders button", e);
+            ScreenshotUtil.takeScreenshotForAllure(driver);
+            throw new RuntimeException("Failed to click Find Orders button", e);
+        }
+    }
+
+    /**
+     * Returns the count of MAE Status records currently displayed.
+     * @return int - count of MAE Status records
+     */
+    public int getMaeStatusRecordCount() {
+        return getStatusCount(maeStatusRecords);
+    }
+
+    /**
+     * Returns the count of EBS Order Status records currently displayed.
+     * @return int - count of EBS Order Status records
+     */
+    public int getEbsOrderStatusRecordCount() {
+        return getStatusCount(ebsOrderStatusRecords);
+    }
+
+    /**
+     * Returns the count of EBS Business Events-failed records currently displayed.
+     * @return int - count of EBS Business Events-failed records
+     */
+    public int getEbsBusinessEventsFailedRecordCount() {
+        return getStatusCount(ebsBusinessEventsFailedRecords);
+    }
 }
