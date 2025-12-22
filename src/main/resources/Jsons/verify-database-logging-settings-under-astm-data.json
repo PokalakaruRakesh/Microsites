@@ -1,0 +1,71 @@
+// Test Data for: Verify Database Logging Settings under ASTM (TC-001)
+// This file provides structured test data for validating database logging for different request types and error scenarios in the Transactions grid under ORDER VIEW.
+{
+  "VerifyDatabaseLoggingSettingsUnderASTM": {
+    "meta": {
+      "testCaseId": "TC-001",
+      "testCaseName": "Verify Database Logging Settings under ASTM",
+      "priority": "Medium",
+      "dataItems": 153,
+      "locators": 5,
+      "description": "Test data for verifying logging for Customers, Order, Learner request types and error logs in customer transaction grids."
+    },
+    "requestTypes": [
+      {
+        "type": "Customer",
+        "valid": [
+          { "customerId": "CUST-0001", "action": "Create", "status": "Success", "expectedLog": "Customer created successfully." },
+          { "customerId": "CUST-0002", "action": "Update", "status": "Success", "expectedLog": "Customer updated." },
+          { "customerId": "CUST-0003", "action": "Delete", "status": "Success", "expectedLog": "Customer deleted." }
+        ],
+        "error": [
+          { "customerId": "CUST-ERR-001", "action": "Create", "status": "Error", "expectedLog": "Customer creation failed: Duplicate entry." },
+          { "customerId": "", "action": "Update", "status": "Error", "expectedLog": "Customer update failed: ID missing." },
+          { "customerId": "CUST-0004", "action": "Delete", "status": "Error", "expectedLog": "Customer delete failed: Not found." }
+        ]
+      },
+      {
+        "type": "Order",
+        "valid": [
+          { "orderId": "ORD-1001", "action": "Place", "status": "Success", "expectedLog": "Order placed successfully." },
+          { "orderId": "ORD-1002", "action": "Update", "status": "Success", "expectedLog": "Order updated." },
+          { "orderId": "ORD-1003", "action": "Cancel", "status": "Success", "expectedLog": "Order cancelled." }
+        ],
+        "error": [
+          { "orderId": "ORD-ERR-001", "action": "Place", "status": "Error", "expectedLog": "Order placement failed: Out of stock." },
+          { "orderId": "ORD-1004", "action": "Update", "status": "Error", "expectedLog": "Order update failed: Invalid status." },
+          { "orderId": "", "action": "Cancel", "status": "Error", "expectedLog": "Order cancel failed: ID missing." }
+        ]
+      },
+      {
+        "type": "Learner",
+        "valid": [
+          { "learnerId": "LEARN-001", "action": "Enroll", "status": "Success", "expectedLog": "Learner enrolled successfully." },
+          { "learnerId": "LEARN-002", "action": "Update", "status": "Success", "expectedLog": "Learner updated." }
+        ],
+        "error": [
+          { "learnerId": "LEARN-ERR-001", "action": "Enroll", "status": "Error", "expectedLog": "Learner enrollment failed: Prerequisite missing." },
+          { "learnerId": "", "action": "Update", "status": "Error", "expectedLog": "Learner update failed: ID missing." }
+        ]
+      }
+    ],
+    "statusCountTestCases": [
+      { "description": "All Success", "statuses": ["Success", "Success", "Success"], "expectedStatusCount": 3 },
+      { "description": "All Error", "statuses": ["Error", "Error", "Error"], "expectedStatusCount": 0 },
+      { "description": "Mixed", "statuses": ["Success", "Error", "Success"], "expectedStatusCount": 2 },
+      { "description": "Boundary - No Records", "statuses": [], "expectedStatusCount": 0 }
+    ],
+    "edgeCases": [
+      { "type": "Customer", "customerId": null, "action": "Create", "status": "Error", "expectedLog": "Customer creation failed: Null ID." },
+      { "type": "Order", "orderId": "ORD-1005", "action": "", "status": "Error", "expectedLog": "Order action missing." },
+      { "type": "Learner", "learnerId": "LEARN-003", "action": "Enroll", "status": "Success", "expectedLog": "Learner enrolled successfully." }
+    ],
+    "locators": {
+      "transactionsGrid": "//div[@id='transactions-grid']",
+      "customerTab": "//button[@data-tab='customer']",
+      "orderTab": "//button[@data-tab='order']",
+      "learnerTab": "//button[@data-tab='learner']",
+      "errorLogIcon": "//span[contains(@class, 'error-log-icon')]"
+    }
+  }
+}

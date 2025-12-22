@@ -204,4 +204,10 @@ public class AdminOrdersPage extends BasePage {
     public int getEbsBusinessEventsFailedRecordCount() {
         return getStatusCount(ebsBusinessEventsFailedRecords);
     }
+
+    // --- NO NEW METHODS REQUIRED FOR 'Verify Database Logging Settings under ASTM' ---
+    // All required flows for this scenario are already implemented in the method:
+    // public LoggingStatusCounts verifyDatabaseLoggingSettings(String fromDate, String toDate)
+    // This method covers: clicking 'Create New Re-Submit Batch', entering date range, clicking 'Find Orders', and retrieving status counts.
+    // Per anti-duplication and method hierarchy rules, no further page object changes are needed for this test case.
 }
