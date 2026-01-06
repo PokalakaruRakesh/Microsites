@@ -1,0 +1,53 @@
+// Test data for: Verify SEI forms are accessible
+// Test Case ID: TCD_FT_03_FR-2
+// Purpose: To ensure users can access SEI forms from the Certified Products Page without errors
+// Priority: High | Type: Functional
+{
+  "VerifySEIFormsAreAccessible": {
+    "TestCaseID": "TCD_FT_03_FR-2",
+    "Objective": "To ensure users can access SEI forms from the Certified Products Page without errors",
+    "Preconditions": [
+      "User is on the Certified Products Page",
+      "SEI forms are hosted and accessible"
+    ],
+    "Locators": {
+      "seiFormsSection": "//section[@id='sei-forms']",
+      "seiFormLink": "//a[contains(@href, 'sei-form')]",
+      "certifiedProductsMenu": "//nav//a[text()='Certified Products']",
+      "searchInput": "//input[@id='product-search']",
+      "downloadButton": "//button[contains(text(),'Download')]"
+    },
+    "TestData": {
+      "validProductName": "SEI Helmet Model X1000",
+      "invalidProductName": "NonExistentProduct9999",
+      "edgeCaseProductName": "",
+      "specialCharProductName": "Helmet!@#%$^&*()_+",
+      "maxLengthProductName": "A12345678901234567890123456789012345678901234567890", // 50 chars
+      "minLengthProductName": "A",
+      "formTypes": [
+        "User Manual",
+        "Certification Letter",
+        "Test Report",
+        "Warranty Card"
+      ],
+      "validFormUrls": [
+        "https://astm.org/sei/forms/helmet-x1000-user-manual.pdf",
+        "https://astm.org/sei/forms/helmet-x1000-cert-letter.pdf"
+      ],
+      "brokenFormUrl": "https://astm.org/sei/forms/helmet-x1000-broken.pdf",
+      "expectedContentType": "application/pdf",
+      "expectedFormTitle": "SEI Helmet Model X1000 - User Manual",
+      "expectedDownloadFileName": "helmet-x1000-user-manual.pdf",
+      "largeFormUrl": "https://astm.org/sei/forms/helmet-x1000-large.pdf"
+    },
+    "EdgeCases": {
+      "noFormsAvailable": true,
+      "multipleFormsAvailable": true,
+      "formDownloadTimeoutMs": 30000,
+      "maxFormSizeMB": 25
+    },
+    "PostConditions": [
+      "User can view or download SEI forms"
+    ]
+  }
+}
