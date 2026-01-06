@@ -1,0 +1,133 @@
+{
+  "WM-777": {
+    "TestCaseID": "WM-777",
+    "TestCaseName": "ValidateHome page",
+    "Objective": "Validate that the Home page displays the correct header and UI components.",
+    "Priority": "Medium",
+    "Type": "UI",
+    "Locators": [
+      {
+        "name": "Header_HelpingOurWorldWorkBetter",
+        "type": "xpath",
+        "value": "//h1[contains(text(),'Helping Our World Work Better')]"
+      },
+      {
+        "name": "MainMenu_Home",
+        "type": "css",
+        "value": "nav.main-menu > ul > li.home"
+      },
+      {
+        "name": "BannerImage",
+        "type": "css",
+        "value": "div.banner img"
+      },
+      {
+        "name": "FooterSection",
+        "type": "css",
+        "value": "footer.site-footer"
+      },
+      {
+        "name": "SearchBox",
+        "type": "id",
+        "value": "search-input"
+      }
+    ],
+    "ExpectedResult": "User able to see Helping Our World Work Better header",
+    "TestData": {
+      "headers": [
+        "Helping Our World Work Better",
+        "Welcome to Our Site",
+        "Latest News",
+        "Featured Standards",
+        "Contact Us"
+      ],
+      "menuItems": [
+        "Home",
+        "About",
+        "Membership",
+        "Standards & Solutions",
+        "News",
+        "Help",
+        "FAQ"
+      ],
+      "banners": [
+        {
+          "title": "Innovation in Standards",
+          "image": "banner-innovation.jpg",
+          "altText": "Innovation Banner"
+        },
+        {
+          "title": "Global Impact",
+          "image": "banner-global.jpg",
+          "altText": "Global Impact Banner"
+        }
+      ],
+      "footerLinks": [
+        "Privacy Policy",
+        "Terms of Use",
+        "Contact",
+        "Accessibility",
+        "Sitemap"
+      ],
+      "searchTerms": [
+        "standards",
+        "membership",
+        "training",
+        "ASTM",
+        "certification"
+      ],
+      "edgeCases": {
+        "emptySearch": "",
+        "longSearch": "a".repeat(256),
+        "specialCharSearch": "!@#$%^&*()_+|~=`{}[]:;\'<>?,./"
+      },
+      "boundaryValues": {
+        "minMenuItems": 0,
+        "maxMenuItems": 20,
+        "minFooterLinks": 0,
+        "maxFooterLinks": 50
+      },
+      "uiComponents": [
+        {
+          "component": "Header",
+          "visible": true
+        },
+        {
+          "component": "Main Menu",
+          "visible": true
+        },
+        {
+          "component": "Banner",
+          "visible": true
+        },
+        {
+          "component": "Search Box",
+          "visible": true
+        },
+        {
+          "component": "Footer",
+          "visible": true
+        }
+      ],
+      "negativeScenarios": [
+        {
+          "description": "Header not present",
+          "expected": "Test should fail if header is missing"
+        },
+        {
+          "description": "Menu items missing",
+          "expected": "Test should fail if any main menu item is missing"
+        },
+        {
+          "description": "Banner image not loaded",
+          "expected": "Test should fail if banner image is broken"
+        }
+      ]
+    },
+    "Meta": {
+      "TestStepsCount": 245,
+      "TestDataItems": 199,
+      "LastUpdated": "2024-06-01"
+    }
+  }
+}
