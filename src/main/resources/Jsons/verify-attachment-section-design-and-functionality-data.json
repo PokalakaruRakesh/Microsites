@@ -1,0 +1,69 @@
+// Test data for: Verify attachment section design and functionality (TCD_FT_05_FR-3)
+// Purpose: To ensure the attachment section design matches the application format and supports file uploads
+{
+  "VerifyAttachmentSection": {
+    "TestCaseID": "TCD_FT_05_FR-3",
+    "Objective": "Ensure the attachment section design matches the application format and supports file uploads",
+    "Preconditions": {
+      "UserLoggedIn": true,
+      "RichTextEditorLoaded": true,
+      "Page": "Email Members"
+    },
+    "Locators": {
+      "AttachmentSection": "#attachment-section",
+      "AttachmentLabel": "label[for='attachment']",
+      "UploadInput": "input[type='file'][name='attachment']",
+      "AttachmentList": "#attachment-list",
+      "RemoveAttachmentButton": ".remove-attachment-btn"
+    },
+    "TestData": {
+      "ValidFiles": [
+        { "fileName": "sample.pdf", "fileType": "application/pdf", "fileSizeKB": 100 },
+        { "fileName": "image.jpg", "fileType": "image/jpeg", "fileSizeKB": 500 },
+        { "fileName": "document.docx", "fileType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "fileSizeKB": 1024 }
+      ],
+      "InvalidFiles": [
+        { "fileName": "script.exe", "fileType": "application/x-msdownload", "fileSizeKB": 200 },
+        { "fileName": "largefile.pdf", "fileType": "application/pdf", "fileSizeKB": 10240 } // 10MB, assuming 5MB limit
+      ],
+      "BoundaryFiles": [
+        { "fileName": "boundary5mb.pdf", "fileType": "application/pdf", "fileSizeKB": 5120 }, // exactly 5MB
+        { "fileName": "empty.txt", "fileType": "text/plain", "fileSizeKB": 0 }
+      ],
+      "MultipleFiles": [
+        { "fileName": "multi1.pdf", "fileType": "application/pdf", "fileSizeKB": 100 },
+        { "fileName": "multi2.jpg", "fileType": "image/jpeg", "fileSizeKB": 200 },
+        { "fileName": "multi3.txt", "fileType": "text/plain", "fileSizeKB": 50 }
+      ],
+      "MaxFilesAllowed": 5
+    },
+    "Labels": {
+      "AttachmentSection": "Attachments",
+      "UploadButton": "Upload",
+      "RemoveButton": "Remove",
+      "MaxFilesMessage": "You can attach up to 5 files.",
+      "FileTypeError": "Unsupported file type.",
+      "FileSizeError": "File size exceeds the maximum allowed size of 5MB.",
+      "EmptyFileError": "File is empty."
+    },
+    "EdgeCases": {
+      "UploadNoFile": {
+        "description": "Attempt to upload with no file selected",
+        "expectedError": "No file selected."
+      },
+      "UploadMaxFiles": {
+        "description": "Upload maximum allowed files and try to add one more",
+        "expectedError": "You can attach up to 5 files."
+      },
+      "RemoveFile": {
+        "description": "Remove an attached file and verify UI updates"
+      }
+    },
+    "PostConditions": {
+      "FileAttached": true,
+      "AttachmentListUpdated": true
+    },
+    "Priority": "Medium",
+    "Type": "Functional"
+  }
+}
