@@ -1,0 +1,165 @@
+{
+  "WM-666": {
+    "TestCaseID": "WM-666",
+    "TestCaseName": "Validate contact page",
+    "Objective": "Validate that the contact page content",
+    "Priority": "Medium",
+    "Locators": [
+      {
+        "name": "Name Input",
+        "type": "input",
+        "locator": "#contact-name"
+      },
+      {
+        "name": "Email Input",
+        "type": "input",
+        "locator": "#contact-email"
+      },
+      {
+        "name": "Subject Input",
+        "type": "input",
+        "locator": "#contact-subject"
+      },
+      {
+        "name": "Message Textarea",
+        "type": "textarea",
+        "locator": "#contact-message"
+      },
+      {
+        "name": "Submit Button",
+        "type": "button",
+        "locator": "#contact-submit"
+      }
+    ],
+    "TestDataSets": [
+      {
+        "description": "Valid input - all fields populated",
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "subject": "Inquiry about services",
+        "message": "Hello, I would like more information about your services.",
+        "expectedResult": "success",
+        "expectedButtonEnabled": true
+      },
+      {
+        "description": "Empty name field",
+        "name": "",
+        "email": "jane.doe@example.com",
+        "subject": "Support",
+        "message": "Need help with my account.",
+        "expectedResult": "validation_error",
+        "expectedButtonEnabled": false
+      },
+      {
+        "description": "Invalid email format",
+        "name": "Jane Doe",
+        "email": "jane.doe@invalid",
+        "subject": "Feedback",
+        "message": "Great website!",
+        "expectedResult": "validation_error",
+        "expectedButtonEnabled": false
+      },
+      {
+        "description": "Empty subject field",
+        "name": "Alex Smith",
+        "email": "alex.smith@example.com",
+        "subject": "",
+        "message": "Subject is missing.",
+        "expectedResult": "validation_error",
+        "expectedButtonEnabled": false
+      },
+      {
+        "description": "Empty message field",
+        "name": "Chris Lee",
+        "email": "chris.lee@example.com",
+        "subject": "General Question",
+        "message": "",
+        "expectedResult": "validation_error",
+        "expectedButtonEnabled": false
+      },
+      {
+        "description": "Boundary: Max length name (50 chars)",
+        "name": "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "email": "max.name@example.com",
+        "subject": "Boundary Test",
+        "message": "Testing max length for name field.",
+        "expectedResult": "success",
+        "expectedButtonEnabled": true
+      },
+      {
+        "description": "Boundary: Max length email (100 chars)",
+        "name": "Max Email",
+        "email": "max.email.abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz@example.com",
+        "subject": "Boundary Test",
+        "message": "Testing max length for email field.",
+        "expectedResult": "success",
+        "expectedButtonEnabled": true
+      },
+      {
+        "description": "Boundary: Max length subject (100 chars)",
+        "name": "Max Subject",
+        "email": "max.subject@example.com",
+        "subject": "Ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+        "message": "Testing max length for subject field.",
+        "expectedResult": "success",
+        "expectedButtonEnabled": true
+      },
+      {
+        "description": "Boundary: Max length message (500 chars)",
+        "name": "Max Message",
+        "email": "max.message@example.com",
+        "subject": "Boundary Test",
+        "message": "M".repeat(500),
+        "expectedResult": "success",
+        "expectedButtonEnabled": true
+      },
+      {
+        "description": "Edge Case: All fields empty",
+        "name": "",
+        "email": "",
+        "subject": "",
+        "message": "",
+        "expectedResult": "validation_error",
+        "expectedButtonEnabled": false
+      },
+      {
+        "description": "Edge Case: Special characters in all fields",
+        "name": "!@#$%^&*()_+|~=`{}[]:\";'<>?,./",
+        "email": "special!@example.com",
+        "subject": "!@#$%^&*()_+|~=`{}[]:\";'<>?,./",
+        "message": "!@#$%^&*()_+|~=`{}[]:\";'<>?,./",
+        "expectedResult": "success",
+        "expectedButtonEnabled": true
+      },
+      {
+        "description": "Edge Case: SQL Injection attempt",
+        "name": "Robert'); DROP TABLE Contacts;--",
+        "email": "sql.injection@example.com",
+        "subject": "Test",
+        "message": "Robert'); DROP TABLE Contacts;--",
+        "expectedResult": "success",
+        "expectedButtonEnabled": true
+      },
+      {
+        "description": "Edge Case: XSS attempt in message",
+        "name": "XSS Tester",
+        "email": "xss@example.com",
+        "subject": "Security Test",
+        "message": "<script>alert('XSS')</script>",
+        "expectedResult": "success",
+        "expectedButtonEnabled": true
+      },
+      {
+        "description": "Edge Case: Unicode characters",
+        "name": "测试用户",
+        "email": "unicode@example.com",
+        "subject": "测试主题",
+        "message": "这是一条测试消息。",
+        "expectedResult": "success",
+        "expectedButtonEnabled": true
+      }
+      // ... (Add up to 115 data items as needed for full coverage)
+    ],
+    "ExpectedResult": "user able to click on submit message button"
+  }
+}
