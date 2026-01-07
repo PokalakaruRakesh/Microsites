@@ -1,0 +1,241 @@
+{
+  "VerifyProductPurchaseFlow-INT-369": {
+    "TestCaseID": "INT-369",
+    "TestCaseName": "Verify Product Purchase Flow",
+    "Objective": "Verify end-to-end product purchase flow in ASTM member application",
+    "Priority": "Medium",
+    "Locators": [
+      {
+        "name": "ProductSearchBox",
+        "type": "id",
+        "value": "search-input"
+      },
+      {
+        "name": "AddToCartButton",
+        "type": "xpath",
+        "value": "//button[contains(@class,'add-to-cart')]"
+      },
+      {
+        "name": "CartIcon",
+        "type": "css",
+        "value": ".cart-icon"
+      },
+      {
+        "name": "CheckoutButton",
+        "type": "id",
+        "value": "checkout-btn"
+      },
+      {
+        "name": "OrderConfirmationMessage",
+        "type": "xpath",
+        "value": "//div[contains(text(),'Order Placed Successfully')]"
+      }
+    ],
+    "TestDataSets": [
+      {
+        "scenario": "Valid Product Purchase",
+        "user": {
+          "username": "valid_user@example.com",
+          "password": "ValidPass123!"
+        },
+        "product": {
+          "searchKeyword": "Standard Test Product",
+          "productId": "ASTM-STD-001",
+          "quantity": 1,
+          "price": 99.99
+        },
+        "shipping": {
+          "addressLine1": "123 Main St",
+          "addressLine2": "Suite 100",
+          "city": "Philadelphia",
+          "state": "PA",
+          "zip": "19103",
+          "country": "USA"
+        },
+        "payment": {
+          "cardType": "Visa",
+          "cardNumber": "4111111111111111",
+          "expiryMonth": "12",
+          "expiryYear": "2026",
+          "cvv": "123"
+        },
+        "expectedResult": "Order Placed Successfully"
+      },
+      {
+        "scenario": "Invalid Card Number",
+        "user": {
+          "username": "valid_user@example.com",
+          "password": "ValidPass123!"
+        },
+        "product": {
+          "searchKeyword": "Standard Test Product",
+          "productId": "ASTM-STD-001",
+          "quantity": 1,
+          "price": 99.99
+        },
+        "shipping": {
+          "addressLine1": "123 Main St",
+          "addressLine2": "Suite 100",
+          "city": "Philadelphia",
+          "state": "PA",
+          "zip": "19103",
+          "country": "USA"
+        },
+        "payment": {
+          "cardType": "Visa",
+          "cardNumber": "4111111111110000",
+          "expiryMonth": "12",
+          "expiryYear": "2026",
+          "cvv": "123"
+        },
+        "expectedResult": "Payment failed: Invalid card number"
+      },
+      {
+        "scenario": "Boundary Quantity (Min)",
+        "user": {
+          "username": "valid_user@example.com",
+          "password": "ValidPass123!"
+        },
+        "product": {
+          "searchKeyword": "Standard Test Product",
+          "productId": "ASTM-STD-001",
+          "quantity": 1,
+          "price": 99.99
+        },
+        "shipping": {
+          "addressLine1": "123 Main St",
+          "addressLine2": "Suite 100",
+          "city": "Philadelphia",
+          "state": "PA",
+          "zip": "19103",
+          "country": "USA"
+        },
+        "payment": {
+          "cardType": "MasterCard",
+          "cardNumber": "5555555555554444",
+          "expiryMonth": "01",
+          "expiryYear": "2027",
+          "cvv": "456"
+        },
+        "expectedResult": "Order Placed Successfully"
+      },
+      {
+        "scenario": "Boundary Quantity (Max)",
+        "user": {
+          "username": "valid_user@example.com",
+          "password": "ValidPass123!"
+        },
+        "product": {
+          "searchKeyword": "Standard Test Product",
+          "productId": "ASTM-STD-001",
+          "quantity": 100,
+          "price": 99.99
+        },
+        "shipping": {
+          "addressLine1": "123 Main St",
+          "addressLine2": "Suite 100",
+          "city": "Philadelphia",
+          "state": "PA",
+          "zip": "19103",
+          "country": "USA"
+        },
+        "payment": {
+          "cardType": "Amex",
+          "cardNumber": "378282246310005",
+          "expiryMonth": "11",
+          "expiryYear": "2028",
+          "cvv": "7890"
+        },
+        "expectedResult": "Order Placed Successfully"
+      },
+      {
+        "scenario": "Missing Required Shipping Field",
+        "user": {
+          "username": "valid_user@example.com",
+          "password": "ValidPass123!"
+        },
+        "product": {
+          "searchKeyword": "Standard Test Product",
+          "productId": "ASTM-STD-001",
+          "quantity": 1,
+          "price": 99.99
+        },
+        "shipping": {
+          "addressLine1": "",
+          "addressLine2": "Suite 100",
+          "city": "Philadelphia",
+          "state": "PA",
+          "zip": "19103",
+          "country": "USA"
+        },
+        "payment": {
+          "cardType": "Visa",
+          "cardNumber": "4111111111111111",
+          "expiryMonth": "12",
+          "expiryYear": "2026",
+          "cvv": "123"
+        },
+        "expectedResult": "Shipping address is required"
+      },
+      {
+        "scenario": "Edge Case: Zero Quantity",
+        "user": {
+          "username": "valid_user@example.com",
+          "password": "ValidPass123!"
+        },
+        "product": {
+          "searchKeyword": "Standard Test Product",
+          "productId": "ASTM-STD-001",
+          "quantity": 0,
+          "price": 99.99
+        },
+        "shipping": {
+          "addressLine1": "123 Main St",
+          "addressLine2": "Suite 100",
+          "city": "Philadelphia",
+          "state": "PA",
+          "zip": "19103",
+          "country": "USA"
+        },
+        "payment": {
+          "cardType": "Visa",
+          "cardNumber": "4111111111111111",
+          "expiryMonth": "12",
+          "expiryYear": "2026",
+          "cvv": "123"
+        },
+        "expectedResult": "Quantity must be at least 1"
+      },
+      {
+        "scenario": "Edge Case: Maximum Length Fields",
+        "user": {
+          "username": "verylongemailaddress_user_with_max_length_256_characters_abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz@example.com",
+          "password": "VeryLongPasswordWithSpecialChars1234567890!@#$%^&*()_+-=|}{:?><,./;[]\'~`"
+        },
+        "product": {
+          "searchKeyword": "Standard Test Product With Maximum Name Length Allowed By System",
+          "productId": "ASTM-STD-001",
+          "quantity": 1,
+          "price": 99.99
+        },
+        "shipping": {
+          "addressLine1": "123 Main Street With Maximum Length Allowed By System Input Field",
+          "addressLine2": "Suite 100",
+          "city": "Philadelphia",
+          "state": "PA",
+          "zip": "19103",
+          "country": "USA"
+        },
+        "payment": {
+          "cardType": "Visa",
+          "cardNumber": "4111111111111111",
+          "expiryMonth": "12",
+          "expiryYear": "2026",
+          "cvv": "123"
+        },
+        "expectedResult": "Order Placed Successfully"
+      }
+    ],
+    "Notes": "This file contains representative test data for the Verify Product Purchase Flow test case (INT-369). Each scenario covers valid, invalid, boundary, and edge cases for product purchase in the ASTM member application."
+  }
+}
